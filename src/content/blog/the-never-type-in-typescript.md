@@ -1,6 +1,6 @@
 ---
 title: 'The never type in TypeScript'
-excerpt: 'The greatly underestimated and often overlooked never type is a core Type in the TypeScript type hierarchy. TypeScript itself says: "The never type represents the type of values that never occur." Even though it is said to never appear, it is omnipresent. The **never** type holds the same significance as the other types we know from TypeScript, with the difference that it has no value or cannot take one, and therefore stands at the very bottom of the hierarchy.'
+excerpt: 'The greatly underestimated and often overlooked never type is a core Type in the TypeScript type hierarchy. TypeScript itself says: "The never type represents the type of values that never occur." Even though it is said to never appear, it is omnipresent.'
 publishDate: 'February 18 2024'
 tags:
   - typescript
