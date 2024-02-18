@@ -103,7 +103,7 @@ const siteConfig: SiteConfig = {
     hero: {
         title: 'Ad astra per aspera',
         text:
-            "In this big online world, I'm ready to start a big adventure. It's called \"Ad astra per aspera\" - which means working hard to achieve amazing things. I believe in working through hard times to do something great. I've learned a lot over the last decade, and now I want to share it on my blog, http://honey.glass/blog.\n" +
+            "In this big online world, I'm ready to start a big adventure. It's called [Ad astra per aspera](https://screenrant.com/ad-astra-per-aspera-strange-new-worlds-meaning/) - which means \"through hardships to the stars\". I believe in working through hard times to do something great. I've learned a lot over the last decade, and now I want to share it on my blog, http://honey.glass/blog.\n" +
             '\n' +
             "I'm going to talk about programming and all the cool tech stuff around it. I want to make everything I know easy for everyone to understand. I don't just want to make things; I want to help us all learn together and make tough topics as easy as enjoying honey.\n" +
             '\n' +
