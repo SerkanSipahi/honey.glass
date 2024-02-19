@@ -3,7 +3,6 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
-import cookieconsent from '@jop-software/astro-cookieconsent';
 import partytown from '@astrojs/partytown';
 
 // https://astro.build/config
@@ -19,22 +18,6 @@ export default defineConfig({
         }),
         tailwind({
             applyBaseStyles: false
-        }),
-        cookieconsent({
-            guiOptions: {
-                consentModal: {
-                    layout: 'cloud',
-                    position: 'bottom center',
-                    equalWeightButtons: true,
-                    flipButtons: false
-                },
-                preferencesModal: {
-                    layout: 'box',
-                    position: 'right',
-                    equalWeightButtons: true,
-                    flipButtons: false
-                }
-            }
         })
     ],
     markdown: {
