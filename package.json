@@ -13,7 +13,7 @@
         "start": "astro dev"
     },
     "lint-staged": {
-        "*.{astro,md,ts,mjs,js,html,css,scss,json}": [
+        "*.{md,ts,mjs,js,html,css,scss,json}": [
             "prettier --write"
         ]
     },
