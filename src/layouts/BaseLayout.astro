@@ -11,8 +11,9 @@ const { showHeader = true, ...head } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="antialiased break-words">
+<html lang="en" class="antialiased break-words cc--darkmode">
     <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0/dist/cookieconsent.css">
         <script type="text/partytown" async src="https://www.googletagmanager.com/gtag/js?id=G-0LJB57S778"></script>
         <script type="text/partytown">
             window.dataLayer = window.dataLayer || [];
@@ -21,7 +22,6 @@ const { showHeader = true, ...head } = Astro.props;
 
             gtag('config', 'G-0LJB57S778', { 'anonymize_ip': true });
         </script>
-
 
         <BaseHead {...head} />
         <script>
@@ -41,13 +41,5 @@ const { showHeader = true, ...head } = Astro.props;
             <Footer />
         </div>
     </body>
-
-    <!-- Cookie Consent by TermsFeed https://www.TermsFeed.com -->
-    <script type="text/javascript" src="https://www.termsfeed.com/public/cookie-consent/4.1.0/cookie-consent.js" charset="UTF-8"></script>
-    <script type="text/javascript" charset="UTF-8">
-        document.addEventListener('DOMContentLoaded', function () {
-            cookieconsent.run({"notice_banner_type":"headline","consent_type":"express","palette":"light","language":"en","page_load_consent_levels":["strictly-necessary"],"notice_banner_reject_button_hide":false,"preferences_center_close_button_hide":false,"page_refresh_confirmation_buttons":false,"website_name":"http://honey.glass","website_privacy_policy_url":"https://honey.glass/privacy/"});
-        });
-    </script>
-    <a href="#" id="open_preferences_center">Update cookies preferences</a>
+    <script type="module" src="/cookieconsent.js"></script>
 </html>
