@@ -6,6 +6,11 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+h1,
+h2 {
+    text-align: start;
+}
+
 @layer base {
     :root {
         --color-text-main: 23 23 23; /* #171717 */
