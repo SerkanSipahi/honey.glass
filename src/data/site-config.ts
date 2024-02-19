@@ -41,7 +41,7 @@ const siteConfig: SiteConfig = {
     title: 'honey.glass',
     subtitle: 'Serkan Sipahi - Software Engineer',
     description:
-        'Serkan Sipahi is a Senior Software Engineer with a focus on Frontend Development. He is passionate about Programming and technologies around them.',
+        "Hello, my name is Serkan, and I'm a Software Engineer. I'll be sharing insights on programming and exploring the fascinating world of technology that surrounds it.",
     // image: {
     //     src: '',
     //     alt: ''
