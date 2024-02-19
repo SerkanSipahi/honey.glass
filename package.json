@@ -1,48 +1,51 @@
 {
-  "name": "honey.glass",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "prepare": "husky"
-  },
-  "dependencies": {
-    "@astrojs/mdx": "^2.0.5",
-    "@astrojs/partytown": "^2.0.4",
-    "@astrojs/rss": "^3.0.0",
-    "@astrojs/sitemap": "^3.0.5",
-    "@astrojs/tailwind": "^5.1.0",
-    "@fontsource/roboto": "^5.0.8",
-    "@jop-software/astro-cookieconsent": "^3.0.0",
-    "@tailwindcss/typography": "^0.5.10",
-    "astro": "^4.2.1",
-    "astro-google-fonts-optimizer": "^0.2.2",
-    "marked": "^9.1.5",
-    "mdast-util-to-string": "^4.0.0",
-    "reading-time": "^1.5.0",
-    "tailwindcss": "^3.4.1",
-    "vanilla-cookieconsent": "^3.0.0"
-  },
-  "devDependencies": {
-    "commitizen": "^4.3.0",
-    "cz-conventional-changelog": "^3.3.0",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
-    "prettier": "^3.0.3",
-    "prettier-plugin-tailwindcss": "^0.5.6"
-  },
-  "lint-staged": {
-    "*.{astro,md,ts,mjs,js,html,css,scss,json}": [
-      "prettier --write"
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+    "name": "honey.glass",
+    "version": "0.0.1",
+    "type": "module",
+    "scripts": {
+        "astro": "astro",
+        "build": "astro build",
+        "dev": "astro dev",
+        "lint-staged": "lint-staged",
+        "prepare": "husky",
+        "preview": "astro preview",
+        "sort": "sort-package-json",
+        "start": "astro dev"
+    },
+    "lint-staged": {
+        "*.{astro,md,ts,mjs,js,html,css,scss,json}": [
+            "prettier --write"
+        ]
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
+    },
+    "dependencies": {
+        "@astrojs/mdx": "^2.0.5",
+        "@astrojs/partytown": "^2.0.4",
+        "@astrojs/rss": "^3.0.0",
+        "@astrojs/sitemap": "^3.0.5",
+        "@astrojs/tailwind": "^5.1.0",
+        "@fontsource/roboto": "^5.0.8",
+        "@jop-software/astro-cookieconsent": "^3.0.0",
+        "@tailwindcss/typography": "^0.5.10",
+        "astro": "^4.2.1",
+        "astro-google-fonts-optimizer": "^0.2.2",
+        "marked": "^9.1.5",
+        "mdast-util-to-string": "^4.0.0",
+        "reading-time": "^1.5.0",
+        "tailwindcss": "^3.4.1",
+        "vanilla-cookieconsent": "^3.0.0"
+    },
+    "devDependencies": {
+        "commitizen": "^4.3.0",
+        "cz-conventional-changelog": "^3.3.0",
+        "husky": "^9.0.11",
+        "lint-staged": "^15.2.2",
+        "prettier": "^3.0.3",
+        "prettier-plugin-tailwindcss": "^0.5.6",
+        "sort-package-json": "^2.7.0"
     }
-  }
 }
