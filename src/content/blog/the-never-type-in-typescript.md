@@ -15,8 +15,6 @@ seo:
 
 ![Light lines on a dark background](/white-hole.webp)
 
-**Preface**
-
 In this article, I want to share my perspective to the topic of "never" type in TypeScript. It offers deep insight but from a different viewpoint. A perspective where one can grasp things on a higher level without delving too much into the extreme details. Others have already provided this deep insight very well in other articles and answered it in numerous StackOverflow responses.
 
 In certain sections of the article, I will discuss some edge cases and limitations of the never type in TypeScript. These examples should be considered as additional information to the TypeScript documentation.
@@ -25,7 +23,8 @@ At the end of the article, you will find an interesting reference to another art
 
 **Typesetting conventions**
 
-In the code examples I am using **"^?"** annotation to indicate the expected type in the TypeScript Playground. This is a convention I have adopted to make it easier to understand the expected type from the TypeScript compiler.
+**^?**<br>
+In the code examples, I use the "^?" annotation in the code examples to show the expected TypeScript type in the TypeScript Playground, making it easier to understand the compiler's expected type.
 
 ## The never type
 
