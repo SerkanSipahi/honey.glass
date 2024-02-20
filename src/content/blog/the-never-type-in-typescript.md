@@ -330,7 +330,7 @@ Object.keys(someString); // logs: ['name', 'country']
 
 **Variable assignment and the 'never' Type**
 
-When we try to assign a value to the 'never' type, for example during a variable declaration, it behaves like a white hole ([White Hole - Wikipedia](https://en.wikipedia.org/wiki/White_hole) - the opposite of a black hole). It lets nothing in. Every other type that wants to go to the other side (e.g., value1) will rejected. Simply put, the values **1**, **Hello World** and **true** are not subtypes of 'never' (except 'never' itself). Not even 'any' can be assigned to the 'never' type.
+When we try to assign a value to the 'never' type, for example during a variable declaration, it behaves like a white hole ([White Hole - Wikipedia](https://en.wikipedia.org/wiki/White_hole) - the opposite of a black hole). It lets nothing in. Every other type that wants to go to the other side (e.g., value1) will rejected. Simply put, the values **1**, **Hello World** and **true** are not subtypes of 'never'.
 
 > [**TypeScript**](https://www.typescriptlang.org/docs/handbook/basic-types.html#never): The 'never' type is a **subtype of**, and assignable to, **every type**; however, **no type is a subtype** of, or **assignable to, 'never'**, (except 'never' itself). Even 'any' isn’t assignable to 'never'
 
