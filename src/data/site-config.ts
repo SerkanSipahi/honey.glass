@@ -103,7 +103,7 @@ const siteConfig: SiteConfig = {
     hero: {
         title: 'Ad astra per aspera',
         text:
-            "I'm writing about programming and all the cool tech stuff around it. I want to make everything I know easy for everyone to understand. I don't just want to make things; I want to help us all learn together and make tough topics as easy as enjoying honey.\n" +
+            "I'm writing about programming and all the cool tech stuff around it. I want to make everything I know easy for everyone to understand. I don't just want to make things; I want to help us all learn together and make tough topics as easy as enjoying reading.\n" +
             '\n' +
             "I hope my blog lights up the way in this huge, unknown online space. With honey.glass, I aim to create a place where we all share what we know freely, helping and feeding our curiosity. This journey might be tough, but it's also going to be rewarding.\n" +
             '\n' +

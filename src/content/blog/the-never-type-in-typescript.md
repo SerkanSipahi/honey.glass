@@ -190,7 +190,7 @@ loop2();
 // ^? never
 ```
 
-The following (see code below) isn't part of the article, but from my own experience, I can say it's not great to have question marks in your head. You might be wondering in what situations one would use an infinite loop without crashing the runtime (browser, Node, Bun, Deno, etc.). A self-contained functional unit could, for example, wait every {n} seconds in a while loop to output the date. The possibilities here are limitless.
+The following code isn't part of the article, but from my own experience, I can say it's not great to have question marks in your head. You might be wondering in what situations one would use an infinite loop without crashing the runtime (Browser, Node, Bun, Deno). A self-contained functional unit you could, for example, wait every {n} seconds in a while loop to output the date. The possibilities here are limitless.
 
 ```ts
 const clock = async function () {

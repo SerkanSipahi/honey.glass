@@ -11,6 +11,11 @@ h2 {
     text-align: start;
 }
 
+h2,
+blockquote {
+    hyphens: none;
+}
+
 @layer base {
     :root {
         --color-text-main: 23 23 23; /* #171717 */
