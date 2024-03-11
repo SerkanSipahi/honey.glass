@@ -61,8 +61,8 @@ const generateUuid = (uuid: string | undefined) => {
   return uuid + Math.random();
 };
 
-generateUuid('name');
-// ^? string
+const uuid = generateUuid('name');
+//    ^? string
 ```
 
 > [**TypeScript**](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#the-never-type): Because never is a subtype of every type, it is always omitted from union types and it is ignored in function return type inference as long as there are other types being returned
@@ -78,8 +78,8 @@ const generateUuid = (uuid: string | undefined) => {
   throw new Error('uuid must be defined');
 };
 
-generateUuid('name');
-// ^? never
+const uuid = generateUuid('name');
+//    ^? never
 ```
 
 When we return some value, the return type becomes a string, and the actual statement from the TypeScript documentation is 100% correct. The critical point in our example is the **throw**. This leads to an exception, which ultimately results in a **never**. However, with another return type string (**return uuid + Math.random() )**, the **never** is ignored. It is important to read the documentation instead of making assumptions.
@@ -95,8 +95,8 @@ const generateUuid = (uuid: string | undefined) => {
   return uuid + Math.random();
 };
 
-generateUuid('name');
-// ^? string
+const uuid = generateUuid('name');
+//    ^? string
 ```
 
 ## Edge-Cases and limitation for the never type in function declarations and control flow analysis
@@ -179,15 +179,15 @@ After discussing many aspects of the **never** type, the last implicit example a
 const loop1 = function () {
   while (true) {}
 };
-loop1();
-// ^? never
+const resutl = loop1();
+//    ^? never
 
 const loop2 = () => {
   for (;;) {}
 };
 
-loop2();
-// ^? never
+const result = loop2();
+//    ^? never
 ```
 
 The following code isn't part of the article, but from my own experience, I can say it's not great to have question marks in your head. You might be wondering in what situations one would use an infinite loop without crashing the runtime (Browser, Node, Bun, Deno). A self-contained functional unit you could, for example, wait every {n} seconds in a while loop to output the date. The possibilities here are limitless.
@@ -230,8 +230,8 @@ const loop1 = () => {
   for (let i = 0; i < Infinity; i++) {}
 };
 
-loop1();
-// ^? void
+const result = loop1();
+//    ^? void
 ```
 
 ## When the never type results from explicit behavior
