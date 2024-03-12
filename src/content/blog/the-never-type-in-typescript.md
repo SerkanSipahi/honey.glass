@@ -99,7 +99,7 @@ const uuid = generateUuid('name');
 //    ^? string
 ```
 
-## Edge-Cases and limitation for the never type in function declarations and control flow analysis
+## Edge-Cases and limitation for the never type in function declarations
 
 As in any language, there are edge cases in TypeScript as well. In our example generateUuid, I used a **function expression** instead of a **function declaration**. The return type behaves slightly differently in function declaration.
 
