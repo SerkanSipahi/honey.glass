@@ -2,6 +2,7 @@
 title: 'The never type in TypeScript'
 excerpt: 'The greatly underestimated and often overlooked never type is a core Type in the TypeScript type hierarchy. TypeScript itself says: "The never type represents the type of values that never occur." Even though it is said to never appear, it is omnipresent.'
 publishDate: 'February 18 2024'
+updatedDate: 'March 28 2024'
 tags:
   - typescript
   - types
@@ -71,6 +72,8 @@ When we break down the function **generateUuid** to examine it in detail, we can
 
 It is **always omitted** from union types, and it is **ignored in function return type** inference as long as **other types are being returned**.
 
+> **Simple we can say:** if you have apple and nothing (never), apple will remain and if you have nothing, nothing will remain.
+
 [TypeScript Playground](https://www.typescriptlang.org/play?#code/MYewdgzgLgBA5gUzAgTgQyggqgVwJYAmMAvDABQ74EBcM0KeYcMAPjDmAQgGaMIEBKEgD4YAbwCwAKBgwoACxQgA7jGSqAoiiUoyAckqEYAWxzQYAIwQwuvZAT0CA3NIC+LqdMTJ0mXIX0wNGMERw8AenCYAD0AfiA)
 
 ```ts
@@ -99,26 +102,36 @@ const uuid = generateUuid('name');
 //    ^? string
 ```
 
+**Keep in mind:** It's a common misconception that the `never` type is only returned when no value is passed to `generateUuid()`. However, as repeatedly mentioned in the TypeScript documentation, the `never` type is omitted as soon as another type is returned.
+
+Passing no value to `generateUuid(...)` will not result in a `never` type; instead, it will produce a string type. TypeScript's default behavior does not include dynamic static analysis; it conducts static analysis at compile time. There is, however, a dynamic approach using conditional types, but that topic is separate.
+
+```ts
+const uuid = generateUuid();
+```
+
 ## Edge-Cases and limitation for the never type in function declarations
 
-As in any language, there are edge cases in TypeScript as well. In our example generateUuid, I used a **function expression** instead of a **function declaration**. The return type behaves slightly differently in function declaration.
+As in any language, there are edge cases in TypeScript as well. In our example <span class="hyphens-none">generateUuid</span>, I used a **function expression** instead of a **function declaration**. The return type behaves slightly differently in function declaration.
 
 **Function expression**
 
 ```ts
 const f = function () {
-  //  ^? never
   throw new Error('error');
 };
+const result = f();
+//    ^? never
 ```
 
 **Function declaration**
 
 ```ts
 function h() {
-  //     ^? void
   throw new Error('error');
 }
+const result = h();
+//    ^? void
 ```
 
 > [**Stackoverflow**](https://stackoverflow.com/questions/40251524/typescript-never-type-inference#40251686): The difference is that 'f' is function expressions, where 'h' is a function declaration. When a function is throw-only, it gets the type never if it's an expression, and void if it's a declaration
@@ -126,32 +139,36 @@ function h() {
 ## Union Types and never
 
 There are two more scenarios where one might encounter the **never** type during development. First, in a **switch** statement and second, in an **if-else** where Union Types are gradually narrowed down, which can ultimately end in a **never** type because there is nothing left to resolve.
+The `saveVehicle` example is an extended outcome of a discussion with [**Alexander Regier**](https://www.linkedin.com/in/alexander-regier-60b5a1144/) that took place during a Meetup where I presented at Check24.
 
-[TypeScript Playground](https://www.typescriptlang.org/play?#code/C4TwDgpgBAwghgJygXigbyqSAuKByAY0TwG4oBnSCAE1wDsBXAWwCMIkBfEgWACgtoAIQCWBEAQA20VBgG48LUeKmkKVWlEat2ULnwFQAahAAWoqSliIoAHygixkiD158AZgzoFgwgPZ0oal8AZV8mCGAzOgBzAHVhSOCAdwSCE3hyCAAKADdTcwhyXGMzJwBKdD4oChTgNKhc-KdyADoBCrQq6qgiTPwiBDxsLu6oPNKpVsoIGhdR6oB6BfnqgD0AfhHulgQIOABrOe7e6AUlJyGt6vGCqfUj0aWVqA2rqB29w63qCDc4BgkwGGvBWN2aD26T1eIPmHwORw4fERrl4Hi8Pn8gRCYQiUTiCRMAEk3ABRCSZRoTCDFJpSDpdYRuBpgqRtcDSZCoQjEekw660iAtaazLZPebQ6ocKAQcnQRnMgVsyAoTn4RSOFS80YswXC6gQsXizYwqUyvqdPljAUG5YS3RIoA)
+[TypeScript Playground](https://www.typescriptlang.org/play?#code/C4TwDgpgBAwghgJygXigbyqSAuKByAY0TwG4oBnSCAE1wDsBXAWwCMIkBfEgWACgtoAIQCWBEAQA20VBgG48LUeKmkKVWlEat2ULnwFQAgsIQEEcAGbAU6TOAjy4Js5eCrKEGvWZtOPfvZQAGoQABaiUgCMNvBIAD5QImKS0AnGpuZW-gYh4SkATDGIUAlJyhD+fBYMdATAwgD2dBRwAG4QuREQkQAU7XlS5LidKZEAlOh8UBQA7sLABKFQfWFd5AB0AhNoU9NQROTQhMTYu3tQ1Czr5G0QPccIeAA0UP1r1+pQAFRQAAzrAFYxv5ztMAPRg0FQ6HnAB6AH5ND52Gc9iwEBA4ABrEF7A5HRTJFSnXhQy7XW73QnlZ6vVYpDYeGjfP7rAAcwNR4MhMN5MIRSO0CC5UHRmJxqOoEAscAYEmAJKhEKgAFEEAgGghcAAVQJ4dIuKx4KDCciaBrWODkcjCADmdDgLCkmAadkg+DoEHaj3Wuvd+ucmTcJrNdAtUCtNvtjudwFdBjwnu9eHWIoITXI1gsDQa9C9OlQbwZuPOyr2AqTKNJoLF2NxHD4Dd4VRqdUazRu7RGUnyKwGDmC9J7212wgsyyLUk2gWQs-wREeI+r00nEA+nmoJagZbhiK0vl2HCgEAkhxN477XWn7tnqAUShSeCX51X65oW53u8FB+rR5PZ52Zdt0hAA5V12A1BAAEJUXTOhMygbNXULIcKlRT8K3zYVf0bIA)
 
 ```ts
 type Car = { type: 'car'; speed: number };
 type Bicycle = { type: 'bicycle'; speed: number };
-type Vehicle = Car | Bicycle;
+type Aircraft = { type: 'aircraft'; speed: number };
+type Vehicle1 = Car | Bicycle | Aircraft;
+type Vehicle2 = Car | Bicycle;
 
-function doSomethingWithSwitchCase(vehicles: Vehicle) {
+function saveVehicle1(vehicles: Vehicle1) {
   switch (vehicles.type) {
     case 'car':
-      vehicles.speed;
-      //       ^? number
+      db.save('car', vehicles.speed * 0.5);
+      //                      ^? number
       break;
     case 'bicycle':
-      vehicles.speed;
-      //       ^? number
+      db.save('bicycle', vehicles.speed * 0.8);
+      //                          ^? number
       break;
     default:
-      vehicles;
-      // ^? never
+      // Error: Type 'Aircraft' is not assignable to type 'never'.Type 'Aircraft' is not assignable to type 'never'.
+      const foo: never = vehicles;
+      //    ^? never
       break;
   }
 }
 
-function doSomethingWithIfElse(vehicle: Vehicle) {
+function saveVehicle2(vehicle: Vehicle2) {
   if (vehicle.type === 'car') {
     vehicle.speed;
     //      ^? number
@@ -159,11 +176,14 @@ function doSomethingWithIfElse(vehicle: Vehicle) {
     vehicle.speed;
     //       ^? number
   } else {
-    vehicle;
-    // ^? never
+    // No error!
+    const foo = vehicle;
+    //    ^? never
   }
 }
 ```
+
+A sophisticated example of error handling with the **never** type, which I discovered several days after publishing the initial version of this article, is presented in Stefan Baumgartner's article. His article, titled [**The `never` type and error handling in TypeScript**](https://fettblog.eu/typescript-never-and-error-handling/#how-to-correctly-use-never-for-error-handling), offers deep insights into the subject."
 
 We should have noticed one thing in all our examples (throw error, switch-case, if-else). Essentially, TypeScript is just representing the behavior of JavaScript, with the difference that it happens at compile time.
 
@@ -190,6 +210,18 @@ const result = loop2();
 //    ^? never
 ```
 
+One could now assume that by using loops such as while(true) or for(;;) the type `never` is retained as the return type even if a valid value is returned directly after the loop. However, this is not the case. The behaviour corresponds to the same of a throw new Error('...'). It is a design decision of TypeScript and is also described in the documentation. It is an implicit behaviour that occurs at compile time and has no influence on the runtime. It is not a dynamic behaviour at compile time; an explicit definition is possible, but that belongs to another topic.
+
+```ts
+const loop1 = function () {
+  while (true) {}
+  return 'Hello World';
+};
+
+const resutl = loop1();
+//    ^? string
+```
+
 The following code isn't part of the article, but from my own experience, I can say it's not great to have question marks in your head. You might be wondering in what situations one would use an infinite loop without crashing the runtime (Browser, Node, Bun, Deno). A self-contained functional unit you could, for example, wait every {n} seconds in a while loop to output the date. The possibilities here are limitless.
 
 ```ts
@@ -202,7 +234,7 @@ const clock = async function () {
   }
 };
 
-clock(); // logs asynchronusly the date every 1000ms
+clock(); // logs asynchronously the date every 1000ms
 
 // ... do something
 // ... do something
@@ -377,17 +409,6 @@ const throwError1 = () => {
 
 // correct: never is a subtype of string or of every type
 canTakeArg1(throwError1());
-// ^? string
-
-function canTakeArg2(foo: never) {}
-const throwError2 = () => {
-  const foo: unknown = 1;
-  return foo;
-};
-
-// error: unknown or other types are not a subtype of never
-canTakeArg2(throwError2());
-// ^? void
 ```
 
 ## Weird at first glance but it is a design decision from TypeScript
