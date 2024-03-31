@@ -2,7 +2,7 @@
 title: 'The never type in TypeScript'
 excerpt: 'The greatly underestimated and often overlooked never type is a core Type in the TypeScript type hierarchy. TypeScript itself says: "The never type represents the type of values that never occur." Even though it is said to never appear, it is omnipresent.'
 publishDate: 'February 18 2024'
-updatedDate: 'March 28 2024'
+updatedDate: 'March 31 2024'
 tags:
   - typescript
   - types
@@ -16,40 +16,40 @@ seo:
 
 ![Light lines on a dark background](/white-hole.webp)
 
-In this article, I want to share my perspective to the topic of "never" type in TypeScript. It offers deep insight but from a different viewpoint. A perspective where one can grasp things on a higher level without delving too much into the extreme details. Others have already provided this deep insight very well in other articles and answered it in numerous StackOverflow responses.
+In this article, I want to share my perspective to the topic of <span class="hyphens-none">never</span> type in TypeScript. It offers deep insight but from a different viewpoint. A perspective where one can grasp things on a higher level without delving too much into the extreme details. Others have already provided this deep insight very well in other articles and answered it in numerous StackOverflow responses.
 
-In certain sections of the article, I will discuss some edge cases and limitations of the never type in TypeScript. These examples should be considered as additional information to the TypeScript documentation.
+In certain sections of the article, I will discuss some edge cases and limitations of the <span class="hyphens-none">never</span> type in TypeScript. These examples should be considered as additional information to the TypeScript documentation.
 
-At the end of the article, you will find an interesting reference to another article to the "never" type. Both articles, this and the reference, comprehensively cover the subject. Additionally, in this article, I frequently refer to Stackoverflow and the TypeScript documentation.
+At the end of the article, you will find an interesting reference to another article to the <span class="hyphens-none">never</span> type. Both articles, this and the reference, comprehensively cover the subject. Additionally, in this article, I frequently refer to Stackoverflow and the TypeScript documentation.
 
 **Typesetting conventions**
 
 **^?**<br>
-In the code examples, I use the "^?" annotation in the code examples to show the expected TypeScript type in the TypeScript Playground, making it easier to understand the compiler's expected type.
+In all the code examples, I use the **"// ^?"** markup format, also known as <span class="hyphens-none">[twoSlashQuery](https://www.typescriptlang.org/dev/twoslash/)</span> to show the expected type in the TypeScript Playground, making it easier to understand the compiler's expected type.
 
 ## The never type
 
-The greatly underestimated and often overlooked **never** type is a core Type in the TypeScript type hierarchy. TypeScript itself says: "The **never** type represents the type of values that never occur." Even though it is said to never appear, it is omnipresent. The **never** type holds the same significance as the other types we know from TypeScript, with the difference that it has no value or cannot take one, and therefore stands at the very bottom of the hierarchy.
+The greatly underestimated and often overlooked <span class="hyphens-none">**never**</span> type is a core Type in the TypeScript type hierarchy. TypeScript itself says: "The <span class="hyphens-none">**never**</span> type represents the type of values that <span class="hyphens-none">never</span> occur." Even though it is said to <span class="hyphens-none">never</span> appear, it is omnipresent. The <span class="hyphens-none">**never**</span> type holds the same significance as the other types we know from TypeScript, with the difference that it has no value or cannot take one, and therefore stands at the very bottom of the hierarchy.
 
-The **never** type is a powerful Type that helps us build stable, predictable, and controllable applications at the type level.
+The <span class="hyphens-none">**never**</span> type is a powerful Type that helps us build stable, predictable, and controllable applications at the type level.
 
 ![Typescript Type Hierarchy by O'Reilly](/typescript-hierarchy.png)
 
 ## The never type can result from an implicit or explicit behavior
 
-Before diving deeper into the **never** type, I want to address two points that we will explore further in this article. Essentially, it's about when one is confronted with the **never** type.
+Before diving deeper into the <span class="hyphens-none">**never**</span> type, I want to address two points that we will explore further in this article. Essentially, it's about when one is confronted with the <span class="hyphens-none">**never**</span> type.
 
 > **Implicit:** TypeScript uses 'never' when it cannot find a matching type for a value. This occurs, for example, in cases where the code cannot be narrowed down to any other specific type.
 
 > **Explicit:** As developers, we can use 'never' to intentionally control type flows, for example, in libraries
 
-Firstly, if TypeScript cannot do anything with a type or cannot narrow it down to a type value (for example, string, number, array), it becomes a **never** type. This can happen implicitly from the TypeScript compiler without us having to do anything directly. Secondly, as a library/utils developer, one can explicitly create a **never** to consciously direct and control the flow of one or more types. In most cases, one is confronted with the first scenario.
+Firstly, if TypeScript cannot do anything with a type or cannot narrow it down to a type value (for example, string, number, array), it becomes a <span class="hyphens-none">**never**</span> type. This can happen implicitly from the TypeScript compiler without us having to do anything directly. Secondly, as a library/utils developer, one can explicitly create a **never** to consciously direct and control the flow of one or more types. In most cases, one is confronted with the first scenario.
 
 ## When the never type results from implicit behavior
 
 **When throwing an error, the never Type is in play**
 
-You don't have to be a library/utils developer to encounter the **never** type. It can quickly happen that TypeScript narrows your value to **never**. In our first real-world example, it's not immediately apparent that we have created a return type of **never** | **string**. Where did the **never** go?
+You don't have to be a library/utils developer to encounter the <span class="hyphens-none">**never**</span> type. It can quickly happen that TypeScript narrows your value to <span class="hyphens-none">**never**</span>. In our first real-world example, it's not immediately apparent that we have created a return type of <span class="hyphens-none">**never**</span> | **string**. Where did the <span class="hyphens-none">**never**</span> go?
 
 [TypeScript Playground](https://www.typescriptlang.org/play?#code/MYewdgzgLgBA5gUzAgTgQyggqgVwJYAmMAvDABQ74EBcM0KeYcMAPjDmAQgGaMIEBKEgD4YAbwCwAKBgw83clACeABwQgFlQiWKkA5By69kBPUMkzZMKAAsUIAO4xkTgKIp7KMgaowAtjjQMABGCDBGfKYCANzSsgC+0nEwKAhQOChg7L4A1DAAshg2AHTonCB+ZDHS8bFS0ojI6Ji4hN5gaH4IZnUA9L0wAHoA-EA)
 
@@ -68,11 +68,11 @@ const uuid = generateUuid('name');
 
 > [**TypeScript**](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#the-never-type): Because never is a subtype of every type, it is always omitted from union types and it is ignored in function return type inference as long as there are other types being returned
 
-When we break down the function **generateUuid** to examine it in detail, we can confirm and prove the statement from TypeScript. If we remove everything out in the code and leave only the exception, the return type of the function is **never**. This means that we can confirm the statement from the TypeScript documentation. Since we haven't created any other return types, it remains the **never** type.
+When we break down the function **generateUuid** to examine it in detail, we can confirm and prove the statement from TypeScript. If we remove everything out in the code and leave only the exception, the return type of the function is <span class="hyphens-none">**never**</span>. This means that we can confirm the statement from the TypeScript documentation. Since we haven't created any other return types, it remains the <span class="hyphens-none">**never**</span> type.
 
 It is **always omitted** from union types, and it is **ignored in function return type** inference as long as **other types are being returned**.
 
-> **Simple we can say:** if you have apple and nothing (never), apple will remain and if you have nothing, nothing will remain.
+> **Simple we can say:** if you have apple and nothing (never), apple will remain and if you have nothing, you have nothing.
 
 [TypeScript Playground](https://www.typescriptlang.org/play?#code/MYewdgzgLgBA5gUzAgTgQyggqgVwJYAmMAvDABQ74EBcM0KeYcMAPjDmAQgGaMIEBKEgD4YAbwCwAKBgwoACxQgA7jGSqAoiiUoyAckqEYAWxzQYAIwQwuvZAT0CA3NIC+LqdMTJ0mXIX0wNGMERw8AenCYAD0AfiA)
 
@@ -85,7 +85,7 @@ const uuid = generateUuid('name');
 //    ^? never
 ```
 
-When we return some value, the return type becomes a string, and the actual statement from the TypeScript documentation is 100% correct. The critical point in our example is the **throw**. This leads to an exception, which ultimately results in a **never**. However, with another return type string (**return uuid + Math.random() )**, the **never** is ignored. It is important to read the documentation instead of making assumptions.
+When we return some value, the return type becomes a string, and the actual statement from the TypeScript documentation is 100% correct. The critical point in our example is the **throw**. This leads to an exception, which ultimately results in a **never**. However, with another return type string `return uuid + Math.random()`, the **never** is ignored. It is important to read the documentation instead of making assumptions.
 
 [TypeScript Playground](https://www.typescriptlang.org/play?#code/MYewdgzgLgBA5gUzAgTgQyggqgVwJYAmMAvDABQ74EBcM0KeYcMAPjDmAQgGaMIEBKEgD4YAbwCwAKBgw83clACeABwQgFlQiWKkA5By69kBPUMkzZMKAAsUIAO4xkTgKIp7KMgaowAtjjQMABGCDBGfKYCANzSsgC+0nEwKAhQOChg7L4A1DAAshg2AHTonCB+ZDHS8bFS0ojI6Ji4hN5gaH4IZnUA9L0wAHoA-EA)
 
@@ -102,17 +102,18 @@ const uuid = generateUuid('name');
 //    ^? string
 ```
 
-**Keep in mind:** It's a common misconception that the `never` type is only returned when no value is passed to `generateUuid()`. However, as repeatedly mentioned in the TypeScript documentation, the `never` type is omitted as soon as another type is returned.
+**Keep in mind:** It's a common misconception that the <span class="hyphens-none">**never**</span> type is only returned when no value is passed to `generateUuid()`. However, as repeatedly mentioned in the TypeScript documentation, the <span class="hyphens-none">**never**</span> type is omitted as soon as another type is returned.
 
-Passing no value to `generateUuid(...)` will not result in a `never` type; instead, it will produce a string type. TypeScript's default behavior does not include dynamic static analysis; it conducts static analysis at compile time. There is, however, a dynamic approach using conditional types, but that topic is separate.
+Passing no value to `generateUuid(...)` will not result in a <span class="hyphens-none">**never**</span> type; instead, it will produce a string type. TypeScript's default behavior does not include dynamic static analysis; it conducts static analysis at compile time. There is, however, a dynamic approach using conditional types, but that topic is separate.
 
 ```ts
 const uuid = generateUuid();
+//    ^? string
 ```
 
 ## Edge-Cases and limitation for the never type in function declarations
 
-As in any language, there are edge cases in TypeScript as well. In our example <span class="hyphens-none">generateUuid</span>, I used a **function expression** instead of a **function declaration**. The return type behaves slightly differently in function declaration.
+As in any language, there are edge cases in TypeScript as well. In our example <span class="hyphens-none">generateUuid</span>, I used a <span class="hyphens-none">**function expression**</span> instead of a <span class="hyphens-none">**function declaration**</span>. The return type behaves slightly differently in function declaration.
 
 **Function expression**
 
@@ -136,62 +137,76 @@ const result = h();
 
 > [**Stackoverflow**](https://stackoverflow.com/questions/40251524/typescript-never-type-inference#40251686): The difference is that 'f' is function expressions, where 'h' is a function declaration. When a function is throw-only, it gets the type never if it's an expression, and void if it's a declaration
 
-## Union Types and never
+## Practical use case for the never type
 
-There are two more scenarios where one might encounter the **never** type during development. First, in a **switch** statement and second, in an **if-else** where Union Types are gradually narrowed down, which can ultimately end in a **never** type because there is nothing left to resolve.
-The `saveVehicle` example is an extended outcome of a discussion with [**Alexander Regier**](https://www.linkedin.com/in/alexander-regier-60b5a1144/) that took place during a Meetup where I presented at Check24.
-
-[TypeScript Playground](https://www.typescriptlang.org/play?#code/C4TwDgpgBAwghgJygXigbyqSAuKByAY0TwG4oBnSCAE1wDsBXAWwCMIkBfEgWACgtoAIQCWBEAQA20VBgG48LUeKmkKVWlEat2ULnwFQAgsIQEEcAGbAU6TOAjy4Js5eCrKEGvWZtOPfvZQAGoQABaiUgCMNvBIAD5QImKS0AnGpuZW-gYh4SkATDGIUAlJyhD+fBYMdATAwgD2dBRwAG4QuREQkQAU7XlS5LidKZEAlOh8UBQA7sLABKFQfWFd5AB0AhNoU9NQROTQhMTYu3tQ1Czr5G0QPccIeAA0UP1r1+pQAFRQAAzrAFYxv5ztMAPRg0FQ6HnAB6AH5ND52Gc9iwEBA4ABrEF7A5HRTJFSnXhQy7XW73QnlZ6vVYpDYeGjfP7rAAcwNR4MhMN5MIRSO0CC5UHRmJxqOoEAscAYEmAJKhEKgAFEEAgGghcAAVQJ4dIuKx4KDCciaBrWODkcjCADmdDgLCkmAadkg+DoEHaj3Wuvd+ucmTcJrNdAtUCtNvtjudwFdBjwnu9eHWIoITXI1gsDQa9C9OlQbwZuPOyr2AqTKNJoLF2NxHD4Dd4VRqdUazRu7RGUnyKwGDmC9J7212wgsyyLUk2gWQs-wREeI+r00nEA+nmoJagZbhiK0vl2HCgEAkhxN477XWn7tnqAUShSeCX51X65oW53u8FB+rR5PZ52Zdt0hAA5V12A1BAAEJUXTOhMygbNXULIcKlRT8K3zYVf0bIA)
+There are two more scenarios where one might encounter the <span class="hyphens-none">**never**</span> type during development. First, in a **switch** statement and second, in an **if-else** where in both cases Union Types are gradually narrowed down, which can ultimately end in a <span class="hyphens-none">**never**</span> type because there is nothing left to resolve.
+The <span class="hyphens-none">`saveVehicle`</span> example is an extended outcome of a discussion with [**Alexander Regier**](https://www.linkedin.com/in/alexander-regier-60b5a1144/) during my Meetup talk.
 
 ```ts
-type Car = { type: 'car'; speed: number };
-type Bicycle = { type: 'bicycle'; speed: number };
-type Aircraft = { type: 'aircraft'; speed: number };
-type Vehicle1 = Car | Bicycle | Aircraft;
-type Vehicle2 = Car | Bicycle;
+type Car = { type: 'car'; fuel: number };
+type Aircraft = { type: 'aircraft'; fuel: number };
+type Bicycle = { type: 'bicycle'; fuel?: null };
 
-function saveVehicle1(vehicles: Vehicle1) {
-  switch (vehicles.type) {
+type Vehicle = Car | Bicycle | Aircraft;
+```
+
+In the next example, the meaning and benefit of the `never` type becomes very clear. In our next code example, we have combined the union types Car, Aircraft and Bicycle into a single type Vehicle. In our switch statement, the individual union types are gradually narrowed down. As you can see, in the default case of the switch statement, an error is thrown because Bicycle has not yet been handled.
+
+[TypeScript Playground](https://www.typescriptlang.org/play?#code/C4TwDgpgBAwghgJygXigbyqSAuKByAY0TwG4oAzAVwgBtcA7SgWwCMIkBfEgKC2gEEAlggII45YCnSZwEXHjjDR44KQrU6URq3ZQuvWVABCggiAI1oqDH3ktT5y2qq0A-A0o0aengchQANQgAC1NLKXgkAB9jBwtoGKERMQlfABMIC0RoLIBnXKgAESN0bigoXOA4YFMKuAA3CAAKADo2xABzXNw4ehAAbQBdAEpceoB7QTTuDm5uOFyQegJ1ZZrx+jrGoND4psbdy1wdsIhh0vKCDcqZf1QD05a+HnLcgHdBYAJgqCa+c7QZXKUCIuWghGI2CBwKgcDeikkxRauQazT4ABooA94i0XN4AFRQADMACYWgBWKAAenxhKqAA8oLSqcMXjDqVT2VzuTyAHquaHAlgICBwADWbMuC3BimSKjwUK5cIRRSMyNRf1kmOxllxGiZUAADNTaZg4IzmazBeUqZyefa+QKucLRRLBRlyHBPMBFezbVAAKIIBDjBC4AAqhjwJjM8TwUEEBXo40kC1ygg69DgLHCwHGt3B9AgjQQeBa1pB10k5HG4wYxd09xCp0lwP9Dq5-IrLvFbNmsyAA)
+
+```ts
+async function saveVehicle(vehicle: Vehicle) {
+  const type = vehicle.type;
+  switch (type) {
     case 'car':
-      db.save('car', vehicles.speed * 0.5);
-      //                      ^? number
+      await DB.save(type, vehicle.fuel * 32.5 /** tax **/);
+      //                          ^? number
       break;
-    case 'bicycle':
-      db.save('bicycle', vehicles.speed * 0.8);
+    case 'aircraft':
+      await DB.save(type, vehicle.fuel * 0 /** tax **/);
       //                          ^? number
       break;
     default:
-      // Error: Type 'Aircraft' is not assignable to type 'never'.Type 'Aircraft' is not assignable to type 'never'.
-      const foo: never = vehicles;
-      //    ^? never
+      // ✅ This is good and expected, as the code cannot be compiled.
+      // Error: Type 'Bicycle' is not assignable to type 'never'.
+      const foo: never = vehicle;
+      //                 ^? Bicycle
       break;
-  }
-}
-
-function saveVehicle2(vehicle: Vehicle2) {
-  if (vehicle.type === 'car') {
-    vehicle.speed;
-    //      ^? number
-  } else if (vehicle.type === 'bicycle') {
-    vehicle.speed;
-    //       ^? number
-  } else {
-    // No error!
-    const foo = vehicle;
-    //    ^? never
   }
 }
 ```
 
-A sophisticated example of error handling with the **never** type, which I discovered several days after publishing the initial version of this article, is presented in Stefan Baumgartner's article. His article, titled [**The `never` type and error handling in TypeScript**](https://fettblog.eu/typescript-never-and-error-handling/#how-to-correctly-use-never-for-error-handling), offers deep insights into the subject."
+> We want to be informed by the TypeScript compiler when one of the union types has not been handled.
 
-We should have noticed one thing in all our examples (throw error, switch-case, if-else). Essentially, TypeScript is just representing the behavior of JavaScript, with the difference that it happens at compile time.
+This is good and expected, as the code cannot be compiled. As soon as Bicycle is also narrowed down, the error disappears because the type of `Vehicle` falls back to `never` in the default case. This allows `never` to be assigned to itself, which means that all cases have been handled correctly. This technique ensures that we do not forget any of the vehicles.
 
-An exception, for example throwing an error, in the browser is a **never** in TypeScripts at compile time, and code sections that are unreachable or not can be narrow it down in a **switch** statement or an **if-else** will end up in a **never**. It's all quite logical when you think about it. The **never** type is a useful tool; it helps us detect incorrect behavior in the code before it happens in the browser.
+The next example is not such a good example and should not be used in this form. The difference to the above example is minimal but would have serious consequences. The code can be compiled, although we forgot to handle the type Bicycle. Although the first example (see above) is what we want, in both examples an exception (error) should be thrown in the default or else case so that we can catch this at runtime and log it if necessary.
+
+[TypeScript Playground](https://www.typescriptlang.org/play?#code/C4TwDgpgBAwghgJygXigbyqSAuKByAY0TwG4oAzAVwgBtcA7SgWwCMIkBfEgKC2gEEAlggII45YCnSZwEXHjjDR44KQrU6URq3ZQuvWVABCggiAI1oqDH3ktT5y2qq0A-A0o0aengchQANQgAC1NLKXgkAB9jBwtoGKERMQlfABMIC0RoLIBnXKgAESN0bigoXOA4YFMKuAA3CAAKADo2xABzXNw4ehAAbQBdAEpceoB7QTTuDm5uOFyQegJ1ZZrx+jrGoND4psbdy1wdsIhh0vKCDcrpPj0pA9OecsFyKCa75C-8IgQ8c7QZXKUDgAHdFJJii1cg1mnwADRQR7xFoubwAKigAGYAEwtACsUAA9OjMVUAB5QUlE4bPYFEonApnMlmsqAAPVcQI4UFouWgr3en2+CiUKVUAKB5TBEKKRmhsI+skRyMsqI0VKgAAZiaTMHBKdTaVLiYy2ea2ZzubyaPyLvTGQA5ca8hAIcYIACEJqu9Bu5HGLtQqogdPKDItVvKs1mQA)
+
+```ts
+async function saveVehicle(vehicle: Vehicle) {
+  const { type } = vehicle;
+  if (type === 'car') {
+    await DB.save(type, vehicle.fuel * 32.5 /** tax **/);
+    //                          ^? number
+  } else if (type === 'aircraft') {
+    await DB.save(type, vehicle.fuel * 0 /** tax **/);
+    //                          ^? number
+  } else {
+    // ⛔️ This is not good because the code can be compiled although we forget to handle the Bicycle type
+    // No error!
+    const foo = vehicle;
+    //          ^? Bicycle
+  }
+}
+```
+
+An exception, for example throwing an error, in the browser is a <span class="hyphens-none">**never**</span> in TypeScripts at compile time, and code sections that are unreachable or not can be narrow it down in a **switch** statement or an **if-else** will end up in a <span class="hyphens-none">**never**</span>. It's all quite logical when you think about it. The <span class="hyphens-none">**never**</span> type is a useful tool; it helps us detect incorrect behavior in the code before it happens in the browser.
 
 ## Infinite Loops and 'never'
 
-After discussing many aspects of the **never** type, the last implicit example are **loops** and **never**. So, I will keep this brief. The return type after an infinite loop, from a function, always results in a **never**.
+After discussing many aspects of the <span class="hyphens-none">**never**</span> type, the last implicit example are **loops** and <span class="hyphens-none">**never**</span>. So, I will keep this brief. The return type after an infinite loop, from a function, always results in a <span class="hyphens-none">**never**</span>.
 
 [TypeScript Playground](https://www.typescriptlang.org/play?#code/MYewdgzgLgBANiEAHAjDAvDAZgVzMKAS3BgAoBKGAbwFgAoGGAdwAtC4BTMqAJxw8pUAvvSEBuegmQoKEugHp5MAHoB+evVCRYUpACYMZSugB81eoywgeZMWMEi64jXV17Z9RStVA)
 
@@ -210,7 +225,7 @@ const result = loop2();
 //    ^? never
 ```
 
-One could now assume that by using loops such as while(true) or for(;;) the type `never` is retained as the return type even if a valid value is returned directly after the loop. However, this is not the case. The behaviour corresponds to the same of a throw new Error('...'). It is a design decision of TypeScript and is also described in the documentation. It is an implicit behaviour that occurs at compile time and has no influence on the runtime. It is not a dynamic behaviour at compile time; an explicit definition is possible, but that belongs to another topic.
+One could now assume that by using loops such as while(true) or for(;;) the type `never` is retained as the return type even if a valid value is returned directly after the loop. However, this is not the case. The behaviour corresponds to the same of a throw new Error('...'). It is an implicit behaviour and even not a dynamic behaviour at compile time.
 
 ```ts
 const loop1 = function () {
@@ -243,17 +258,17 @@ clock(); // logs asynchronously the date every 1000ms
 
 **It's the small, unassuming details**
 
-It is clear from the TypeScript documentation about the **never** type in which cases it can lead to a **never**, but my experience has shown that not much attention is paid to the small details (documentation).
+It is clear from the TypeScript documentation about the <span class="hyphens-none">**never**</span> type in which cases it can lead to a <span class="hyphens-none">**never**</span>, but my experience has shown that not much attention is paid to the small details (documentation).
 
 > [**TypeScript**](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#the-never-type): Because never is a subtype of every type, it is always omitted **from union types** and is ignored **in function** return type inference as long as there are other types being returned
 
-Indeed, **never** can arise or be ignored from Union Types or from the return type of a **function**. As you may have noticed, our examples are around functions. If we executed the code examples not within a function but in a .ts file, this would lead to **unreachable-code**. Essentially, it's almost the same, with the small but significant difference that **never** is a type one can work with on type-level, and **unreachable code** is just a statement from the TypeScript compiler that does not lead to an error.
+Indeed, <span class="hyphens-none">**never**</span> can arise or be ignored from Union Types or from the return type of a **function**. As you may have noticed, our examples are around functions. If we executed the code examples not within a function but in a .ts file, this would lead to **unreachable-code**. Essentially, it's almost the same, with the small but significant difference that <span class="hyphens-none">**never**</span> is a type one can work with on type-level, and **unreachable code** is just a statement from the TypeScript compiler that does not lead to an error.
 
 **Edge Cases, Loops, and the 'never'**
 
-The **never** type represents impossible values in TypeScript. However, if values can be modified at runtime in ways the compiler can't predict, guaranteeing these impossible values never occur becomes technically challenging.
+The <span class="hyphens-none">**never**</span> type represents impossible values in TypeScript. However, if values can be modified at runtime in ways the compiler can't predict, guaranteeing these impossible values never occur becomes technically challenging.
 
-TypeScript leaves the type in the state it would be if it weren't **never**. That's why the return value in loop1 is **void** and not **never**, because the **Infinity** object hangs on the global **window** object and could theoretically be overwritten, like **window.Infinity = 1**, making the loop finite.
+TypeScript leaves the type in the state it would be if it weren't <span class="hyphens-none">**never**</span>. That's why the return value in loop1 is **void** and not <span class="hyphens-none">**never**</span>, because the **Infinity** object hangs on the global **window** object and could theoretically be overwritten, like **window.Infinity = 1**, making the loop finite.
 
 [TypeScript Playground](https://www.typescriptlang.org/play?#code/MYewdgzgLgBANiEAHAjDAvDAFASgwPhgG8BYAKBhgDMQAnbOAU1gEsMYAGAbhjYB4YASTBUWYFlACePFgGpZeIgF9ySruXIJkKXOrIB6fTAB6AfiA)
 
@@ -268,11 +283,11 @@ const result = loop1();
 
 ## When the never type results from explicit behavior
 
-The explicit creation of the **never** type can happen in several ways. Firstly, when we write our utility types or when we work as library developers. Strictly speaking, utility types are **generics**.
+The explicit creation of the <span class="hyphens-none">**never**</span> type can happen in several ways. Firstly, when we write our utility types or when we work as library developers. Strictly speaking, utility types are **generics**.
 
 > [**TypeScript**](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#the-never-type): Because never is a subtype of every type, it is **always omitted from union types** and is ignored in function return type inference as long as there are other types being returned
 
-Secondly, it happens automatically when we use the built-in utility types (Exclude, Extract, Omit, [more Utility-Types](https://www.typescriptlang.org/docs/handbook/utility-types.html)) from TypeScript. Let's make a little excursion into the world of conditional types and generics to understand the behavior of the **never** type in this context.
+Secondly, it happens automatically when we use the built-in utility types (Exclude, Extract, Omit, [more Utility-Types](https://www.typescriptlang.org/docs/handbook/utility-types.html)) from TypeScript. Let's make a little excursion into the world of conditional types and generics to understand the behavior of the <span class="hyphens-none">**never**</span> type in this context.
 
 **What we see as a developer when we deal with Utility-Types:**
 
@@ -308,21 +323,21 @@ type Foo =
 //   ^? string | number | never
 ```
 
-In the third step the conditions will be resolved so that only the types are left, including the **never** type.
+In the third step the conditions will be resolved so that only the types are left, including the <span class="hyphens-none">**never**</span> type.
 
 ```ts
 type Foo = string | number | never;
 //   ^? string | number | never
 ```
 
-In the last step, the **never** will be ignored from the Union Types
+In the last step, the <span class="hyphens-none">**never**</span> will be ignored from the Union Types
 
 ```ts
 type Foo = string | number;
 //   ^? string | number
 ```
 
-I just wanted to illustrate that the **never** type disappears or **ignored** as already quoted several times from the TypeScript documentation. But basically, it is not the conditional types in the generic that makes the magic. The following example sums it up and confirms the TypeScript documentation once again. The **never** type is omitted from union types.
+I just wanted to illustrate that the <span class="hyphens-none">**never**</span> type disappears or **ignored** as already quoted several times from the TypeScript documentation. But basically, it is not the conditional types in the generic that makes the magic. The following example sums it up and confirms the TypeScript documentation once again. The <span class="hyphens-none">**never**</span> type is omitted from union types.
 
 ```ts
 type Bar = string | boolean | number | never;
@@ -344,7 +359,7 @@ type Result = keyof {};
 //   ^? never
 ```
 
-If we apply a `keyof` to an empty object type in TypeScript we get **never**. The same applies to JavaScript. In both cases an empty object cannot contain anything.
+If we apply a `keyof` to an empty object type in TypeScript we get <span class="hyphens-none">**never**</span>. The same applies to JavaScript. In both cases an empty object cannot contain anything.
 
 As we've learned in the article, TypeScript essentially tries to mirror the behavior of JavaScript at compile time on a type level.
 
@@ -395,7 +410,7 @@ const value4: never = (() => {
 
 **Function arguments and assignability of variables to the never type**
 
-In the example above we have looked at a very theoretical and not practice-orientated variant of what happens when you try to assign values to a **never** type. In reality, and in most cases, this compile-time error occurs when you pass the return values from one function to another function. This is the only difference to the example above.
+In the example above we have looked at a very theoretical and not practice-orientated variant of what happens when you try to assign values to a <span class="hyphens-none">**never**</span> type. In reality, and in most cases, this compile-time error occurs when you pass the return values from one function to another function. This is the only difference to the example above.
 
 [TypeScript Playground](https://www.typescriptlang.org/play?#code/GYVwdgxgLglg9mABBAhmAKig1gUwIIBOA5gIwAUwccAXIuFmHAO5IA+iAzlATGEYuzAgAtgCMcBAYlFUANjjQBKRAG8AsAChE2xARxQQBJAHIA6gE8IsmMGA5jmnYgC+miAi6IoACwLMAogR+BCSIALyIZMphAHyqjl6+zIhgOEyIgcFkxhLBxooA3JrORRqaAPTlyHBBONC0bmiYuISkZD5+TJk15IqFFVUAegD8mpqgkLAIyE3Y+MQATBRUtKkAbhLKKq4a7mCeHQFBNQvhkdFx6lrV+1CIlDR0YAzMSBEkpdp6Bkb3VKUlMa7WYtRbtJJdY4EJZ9AqISqIVoiHBgO5wYBecwABxwTxeLEQMA4KTgdxQHA4MCIYBQonkXjgiCxKAIKGE+gkiHRmJxKRwGwIA0QIyAA)
 
@@ -442,7 +457,10 @@ type Ipsum = Lorum<never>;
 
 ## Exploring other(s) perspectives of the 'never' type can be useful
 
-Unfortunately, I can't cover everything about the **never** type in this article. That would exceed the scope of the topic. I intended to show and share my perspective on things. Many great articles on the web have already explored other aspects of the **never** type. Here is a really interesting article that I find very insightful from **Zhenghao's** Blog about the [**never Type**](https://www.zhenghao.io/posts/ts-never)
+Unfortunately, I can't cover everything about the <span class="hyphens-none">**never**</span> type in this article. That would exceed the scope of the topic. I intended to show and share my perspective on things. Many great articles on the web have already explored other aspects of the <span class="hyphens-none">**never**</span> type.
+
+- Here is a really interesting article that I find very insightful from **Zhenghao's** Blog about the [**never Type**](https://www.zhenghao.io/posts/ts-never)
+- A sophisticated example of error handling with the <span class="hyphens-none">**never**</span> type, which I discovered several days after publishing the initial version of this article, is presented in Stefan Baumgartner's article. His article, titled <span class="hyphens-none">[**The `never` type and error handling in TypeScript**](https://fettblog.eu/typescript-never-and-error-handling/#how-to-correctly-use-never-for-error-handling)</span>, offers deep insights into the subject."
 
 **Conclusion**
 
