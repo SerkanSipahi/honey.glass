@@ -30,5 +30,3 @@ export function getPostsByTag(posts: CollectionEntry<'blog'>[], tagSlug: string)
     );
     return filteredPosts;
 }
-
-type x = Exclude<any, any>;
