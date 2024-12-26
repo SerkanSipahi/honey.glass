@@ -5,6 +5,10 @@
 - [ ] when using dependabot, we have to run playwrite tests to make sure the dependabot updates don't break the sites
 - [ ] add eslint
 
+### Drafts Articles
+
+see src/drafts/
+
 ### Inside the tests directory, you can run several commands:
 
 **Runs the end-to-end tests:**

@@ -11,13 +11,13 @@ export const tagsYamlSnapshot = `
     - img
 - main:
   - heading "All Tags" [level=1]
-  - link "typescript 2 posts View Tag Archive":
+  - link "typescript 1 post View Tag Archive":
     - heading "typescript" [level=2]
     - img
-  - link "types 2 posts View Tag Archive":
+  - link "types 1 post View Tag Archive":
     - heading "types" [level=2]
     - img
-  - link "never 2 posts View Tag Archive":
+  - link "never 1 post View Tag Archive":
     - heading "never" [level=2]
     - img
 - contentinfo:
@@ -29,4 +29,5 @@ export const tagsYamlSnapshot = `
   - link "LinkedIn"
   - link "XING"
   - paragraph: /© \\d+ honey\\.glass\\. All rights reserved\\./
+- text: Tags | honey.glass
 `;

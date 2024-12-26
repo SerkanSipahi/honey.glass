@@ -473,12 +473,6 @@ export const expectTheNeverTypeInTs = `
     - link "#types"
     - link "#never"
     - button "Copy link"
-  - heading "Read Next" [level=2]
-  - link /Like Ed Sheeran with 4 chords - Efficient keybindings chords for your system February \\d+, \\d+ \\(Updated on March \\d+, \\d+ \\) \\.\\.\\. Read Post/:
-    - heading "Like Ed Sheeran with 4 chords - Efficient keybindings chords for your system" [level=3]
-    - time: /February \\d+, \\d+/
-    - time: /March \\d+, \\d+/
-    - img
 - contentinfo:
   - link "Contact"
   - link "Imprint"
@@ -488,4 +482,5 @@ export const expectTheNeverTypeInTs = `
   - link "LinkedIn"
   - link "XING"
   - paragraph: /© \\d+ honey\\.glass\\. All rights reserved\\./
+- text: The never type in TypeScript | honey.glass
 `;
