@@ -1,0 +1,32 @@
+export const tagsYamlSnapshot = `
+- navigation:
+  - list:
+    - listitem:
+      - link "Home"
+    - listitem:
+      - link "Blog"
+    - listitem:
+      - link "Tags"
+  - button "Change color scheme":
+    - img
+- main:
+  - heading "All Tags" [level=1]
+  - link "typescript 2 posts View Tag Archive":
+    - heading "typescript" [level=2]
+    - img
+  - link "types 2 posts View Tag Archive":
+    - heading "types" [level=2]
+    - img
+  - link "never 2 posts View Tag Archive":
+    - heading "never" [level=2]
+    - img
+- contentinfo:
+  - link "Contact"
+  - link "Imprint"
+  - link "Privacy"
+  - link "Twitter"
+  - link "Github"
+  - link "LinkedIn"
+  - link "XING"
+  - paragraph: /© \\d+ honey\\.glass\\. All rights reserved\\./
+`;

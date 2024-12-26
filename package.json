@@ -7,6 +7,7 @@
         "build": "astro build",
         "dev": "astro dev",
         "lint-staged": "lint-staged",
+        "test:e2e": "playwright test",
         "prepare": "husky",
         "preview": "astro preview",
         "ncu": "ncu -i",
@@ -43,6 +44,7 @@
         "tailwindcss": "^3.4.17"
     },
     "devDependencies": {
+        "@playwright/test": "^1.49.1",
         "commitizen": "^4.3.1",
         "cz-conventional-changelog": "^3.3.0",
         "husky": "^9.1.7",

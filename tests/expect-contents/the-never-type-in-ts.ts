@@ -1,0 +1,491 @@
+export const expectTheNeverTypeInTs = `
+- navigation:
+  - list:
+    - listitem:
+      - link "Home"
+    - listitem:
+      - link "Blog"
+    - listitem:
+      - link "Tags"
+  - button "Change color scheme":
+    - img
+- main:
+  - article:
+    - heading "The never type in TypeScript" [level=1]
+    - heading [level=5]
+    - time: /February \\d+, \\d+/
+    - text: /\\d+ min read \\(Updated on/
+    - time: /March \\d+, \\d+/
+    - text: )
+    - paragraph:
+      - img "Light lines on a dark background"
+    - paragraph: In this article, I want to share my perspective to the topic of never type in TypeScript. It offers deep insight but from a different viewpoint. A perspective where one can grasp things on a higher level without delving too much into the extreme details. Others have already provided this deep insight very well in other articles and answered it in numerous StackOverflow responses.
+    - paragraph: In certain sections of the article, I will discuss some edge cases and limitations of the never type in TypeScript. These examples should be considered as additional information to the TypeScript documentation.
+    - paragraph: At the end of the article, you will find an interesting reference to another article to the never type. Both articles, this and the reference, comprehensively cover the subject. Additionally, in this article, I frequently refer to Stackoverflow and the TypeScript documentation.
+    - paragraph:
+      - strong: Typesetting conventions
+    - paragraph:
+      - strong: ^?
+      - text: In all the code examples, I use the
+      - strong: ”// ^?”
+      - text: markup format, also known as
+      - link "twoSlashQuery"
+      - text: to show the expected type in the TypeScript Playground, making it easier to understand the compiler’s expected type.
+    - heading "The never type" [level=2]
+    - paragraph:
+      - text: The greatly underestimated and often overlooked
+      - strong: never
+      - text: "type is a core Type in the TypeScript type hierarchy. TypeScript itself says: “The"
+      - strong: never
+      - text: type represents the type of values that never occur.” Even though it is said to never appear, it is omnipresent. The
+      - strong: never
+      - text: type holds the same significance as the other types we know from TypeScript, with the difference that it has no value or cannot take one, and therefore stands at the very bottom of the hierarchy.
+    - paragraph:
+      - text: The
+      - strong: never
+      - text: type is a powerful Type that helps us build stable, predictable, and controllable applications at the type level.
+    - paragraph:
+      - img "Typescript Type Hierarchy by O'Reilly"
+    - heading "The never type can result from an implicit or explicit behavior" [level=2]
+    - paragraph:
+      - text: Before diving deeper into the
+      - strong: never
+      - text: type, I want to address two points that we will explore further in this article. Essentially, it’s about when one is confronted with the
+      - strong: never
+      - text: type.
+    - blockquote:
+      - paragraph:
+        - strong: "Implicit:"
+        - text: TypeScript uses ‘never’ when it cannot find a matching type for a value. This occurs, for example, in cases where the code cannot be narrowed down to any other specific type.
+    - blockquote:
+      - paragraph:
+        - strong: "Explicit:"
+        - text: As developers, we can use ‘never’ to intentionally control type flows, for example, in libraries
+    - paragraph:
+      - text: Firstly, if TypeScript cannot do anything with a type or cannot narrow it down to a type value (for example, string, number, array), it becomes a
+      - strong: never
+      - text: type. This can happen implicitly from the TypeScript compiler without us having to do anything directly. Secondly, as a library/utils developer, one can explicitly create a
+      - strong: never
+      - text: to consciously direct and control the flow of one or more types. In most cases, one is confronted with the first scenario.
+    - heading "When the never type results from implicit behavior" [level=2]
+    - paragraph:
+      - strong: When throwing an error, the never Type is in play
+    - paragraph:
+      - text: You don’t have to be a library/utils developer to encounter the
+      - strong: never
+      - text: type. It can quickly happen that TypeScript narrows your value to
+      - strong: never
+      - text: . In our first real-world example, it’s not immediately apparent that we have created a return type of
+      - strong: never
+      - text: "|"
+      - strong: string
+      - text: . Where did the
+      - strong: never
+      - text: go?
+    - paragraph:
+      - link "TypeScript Playground"
+    - code: "const generateUuid = (uuid: string | undefined) => { if (typeof uuid === 'undefined') { throw new Error('uuid must be defined'); } return uuid + Math.random(); }; const uuid = generateUuid('name'); // ^? string"
+    - blockquote:
+      - paragraph:
+        - link "TypeScript":
+          - strong: TypeScript
+        - text: ": Because never is a subtype of every type, it is always omitted from union types and it is ignored in function return type inference as long as there are other types being returned"
+    - paragraph:
+      - text: When we break down the function
+      - strong: generateUuid
+      - text: to examine it in detail, we can confirm and prove the statement from TypeScript. If we remove everything out in the code and leave only the exception, the return type of the function is
+      - strong: never
+      - text: . This means that we can confirm the statement from the TypeScript documentation. Since we haven’t created any other return types, it remains the
+      - strong: never
+      - text: type.
+    - paragraph:
+      - text: It is
+      - strong: always omitted
+      - text: from union types, and it is
+      - strong: ignored in function return type
+      - text: inference as long as
+      - strong: other types are being returned
+      - text: .
+    - blockquote:
+      - paragraph:
+        - strong: "Simple we can say:"
+        - text: if you have apple and nothing (never), apple will remain and if you have nothing, you have nothing.
+    - paragraph:
+      - link "TypeScript Playground"
+    - code: "const generateUuid = (uuid: string | undefined) => { throw new Error('uuid must be defined'); }; const uuid = generateUuid('name'); // ^? never"
+    - paragraph:
+      - text: /When we return some value, the return type becomes a string, and the actual statement from the TypeScript documentation is \\d+% correct\\. The critical point in our example is the/
+      - strong: throw
+      - text: . This leads to an exception, which ultimately results in a
+      - strong: never
+      - text: . However, with another return type string
+      - code: "\`return uuid + Math.random()\`"
+      - text: ", the"
+      - strong: never
+      - text: is ignored. It is important to read the documentation instead of making assumptions.
+    - paragraph:
+      - link "TypeScript Playground"
+    - code: "const generateUuid = (uuid: string | undefined) => { if (typeof uuid === 'undefined') { throw new Error('uuid must be defined'); } return uuid + Math.random(); }; const uuid = generateUuid('name'); // ^? string"
+    - paragraph:
+      - strong: "Keep in mind:"
+      - text: It’s a common misconception that the
+      - strong: never
+      - text: type is only returned when no value is passed to
+      - code: "\`generateUuid()\`"
+      - text: . However, as repeatedly mentioned in the TypeScript documentation, the
+      - strong: never
+      - text: type is omitted as soon as another type is returned.
+    - paragraph:
+      - text: Passing no value to
+      - code: "\`generateUuid(...)\`"
+      - text: will not result in a
+      - strong: never
+      - text: type; instead, it will produce a string type. TypeScript’s default behavior does not include dynamic static analysis; it conducts static analysis at compile time. There is, however, a dynamic approach using conditional types, but that topic is separate.
+    - code: const uuid = generateUuid(); // ^? string
+    - heading "Edge-Cases and limitation for the never type in function declarations" [level=2]
+    - paragraph:
+      - text: As in any language, there are edge cases in TypeScript as well. In our example generateUuid, I used a
+      - strong: function expression
+      - text: instead of a
+      - strong: function declaration
+      - text: . The return type behaves slightly differently in function declaration.
+    - paragraph:
+      - strong: Function expression
+    - code: "const f = function () { throw new Error('error'); }; const result = f(); // ^? never"
+    - paragraph:
+      - strong: Function declaration
+    - code: "function h() { throw new Error('error'); } const result = h(); // ^? void"
+    - blockquote:
+      - paragraph:
+        - link "Stackoverflow":
+          - strong: Stackoverflow
+        - text: ": The difference is that ‘f’ is function expressions, where ‘h’ is a function declaration. When a function is throw-only, it gets the type never if it’s an expression, and void if it’s a declaration"
+    - heading "Practical use case for the never type" [level=2]
+    - paragraph:
+      - text: There are two more scenarios where one might encounter the
+      - strong: never
+      - text: type during development. First, in a
+      - strong: switch
+      - text: statement and second, in an
+      - strong: if-else
+      - text: where in both cases Union Types are gradually narrowed down, which can ultimately end in a
+      - strong: never
+      - text: type because there is nothing left to resolve. The
+      - code: "\`saveVehicle\`"
+      - text: example is an extended outcome of a discussion with
+      - link "Alexander Regier":
+        - strong: Alexander Regier
+      - text: during my Meetup talk.
+    - code: "type Car = { type: 'car'; fuel: number }; type Aircraft = { type: 'aircraft'; fuel: number }; type Bicycle = { type: 'bicycle'; fuel?: null }; type Vehicle = Car | Bicycle | Aircraft;"
+    - paragraph:
+      - text: In the next example, the meaning and benefit of the
+      - code: "\`never\`"
+      - text: type becomes very clear. In our next code example, we have combined the union types Car, Aircraft and Bicycle into a single type Vehicle. In our switch statement, the individual union types are gradually narrowed down. As you can see, in the default case of the switch statement, an error is thrown because Bicycle has not yet been handled.
+    - paragraph:
+      - link "TypeScript Playground"
+    - code: "/async function saveVehicle\\\\(vehicle: Vehicle\\\\) \\\\{ const type = vehicle\\\\.type; switch \\\\(type\\\\) \\\\{ case 'car': await DB\\\\.save\\\\(type, vehicle\\\\.fuel \\\\* \\\\d+\\\\.\\\\d+ \\\\/\\\\*\\\\* tax \\\\*\\\\*\\\\/\\\\); \\\\/\\\\/ \\\\^\\\\? number break; case 'aircraft': await DB\\\\.save\\\\(type, vehicle\\\\.fuel \\\\* 0 \\\\/\\\\*\\\\* tax \\\\*\\\\*\\\\/\\\\); \\\\/\\\\/ \\\\^\\\\? number break; default: \\\\/\\\\/ ✅ This is good and expected, as the code cannot be compiled\\\\. \\\\/\\\\/ Error: Type 'Bicycle' is not assignable to type 'never'\\\\. const foo: never = vehicle; \\\\/\\\\/ \\\\^\\\\? Bicycle break; \\\\} \\\\}/"
+    - blockquote:
+      - paragraph: We want to be informed by the TypeScript compiler when one of the union types has not been handled.
+    - paragraph:
+      - text: This is good and expected, as the code cannot be compiled. As soon as Bicycle is also narrowed down, the error disappears because the type of
+      - code: "\`Vehicle\`"
+      - text: falls back to
+      - code: "\`never\`"
+      - text: in the default case. This allows
+      - code: "\`never\`"
+      - text: to be assigned to itself, which means that all cases have been handled correctly. This technique ensures that we do not forget any of the vehicles.
+    - paragraph: The next example is not such a good example and should not be used in this form. The difference to the above example is minimal but would have serious consequences. The code can be compiled, although we forgot to handle the type Bicycle. Although the first example (see above) is what we want, in both examples an exception (error) should be thrown in the default or else case so that we can catch this at runtime and log it if necessary.
+    - paragraph:
+      - link "TypeScript Playground"
+    - code: "/async function saveVehicle\\\\(vehicle: Vehicle\\\\) \\\\{ const \\\\{ type \\\\} = vehicle; if \\\\(type === 'car'\\\\) \\\\{ await DB\\\\.save\\\\(type, vehicle\\\\.fuel \\\\* \\\\d+\\\\.\\\\d+ \\\\/\\\\*\\\\* tax \\\\*\\\\*\\\\/\\\\); \\\\/\\\\/ \\\\^\\\\? number \\\\} else if \\\\(type === 'aircraft'\\\\) \\\\{ await DB\\\\.save\\\\(type, vehicle\\\\.fuel \\\\* 0 \\\\/\\\\*\\\\* tax \\\\*\\\\*\\\\/\\\\); \\\\/\\\\/ \\\\^\\\\? number \\\\} else \\\\{ \\\\/\\\\/ ⛔️ This is not good because the code can be compiled although we forget to handle the Bicycle type \\\\/\\\\/ No error! const foo = vehicle; \\\\/\\\\/ \\\\^\\\\? Bicycle \\\\} \\\\}/"
+    - paragraph:
+      - text: An exception, for example throwing an error, in the browser is a
+      - strong: never
+      - text: in TypeScripts at compile time, and code sections that are unreachable or not can be narrow it down in a
+      - strong: switch
+      - text: statement or an
+      - strong: if-else
+      - text: will end up in a
+      - strong: never
+      - text: . It’s all quite logical when you think about it. The
+      - strong: never
+      - text: type is a useful tool; it helps us detect incorrect behavior in the code before it happens in the browser.
+    - heading "Infinite Loops and ‘never’" [level=2]
+    - paragraph:
+      - text: After discussing many aspects of the
+      - strong: never
+      - text: type, the last implicit example are
+      - strong: loops
+      - text: and
+      - strong: never
+      - text: . So, I will keep this brief. The return type after an infinite loop, from a function, always results in a
+      - strong: never
+      - text: .
+    - paragraph:
+      - link "TypeScript Playground"
+    - code: "const loop1 = function () { while (true) {} }; const resutl = loop1(); // ^? never const loop2 = () => { for (;;) {} }; const result = loop2(); // ^? never"
+    - paragraph:
+      - text: One could now assume that by using loops such as while(true) or for(;;) the type
+      - code: "\`never\`"
+      - text: is retained as the return type even if a valid value is returned directly after the loop. However, this is not the case. The behaviour corresponds to the same of a throw new Error(’…’). It is an implicit behaviour and even not a dynamic behaviour at compile time.
+    - code: "const loop1 = function () { while (true) {} return 'Hello World'; }; const resutl = loop1(); // ^? string"
+    - paragraph: "The following code isn’t part of the article, but from my own experience, I can say it’s not great to have question marks in your head. You might be wondering in what situations one would use an infinite loop without crashing the runtime (Browser, Node, Bun, Deno). A self-contained functional unit you could, for example, wait every {n} seconds in a while loop to output the date. The possibilities here are limitless."
+    - code: "/const clock = async function \\\\(\\\\) \\\\{ while \\\\(true\\\\) \\\\{ await new Promise\\\\(\\\\(resolve\\\\) => \\\\{ console\\\\.log\\\\(new Date\\\\(\\\\)\\\\.toString\\\\(\\\\)\\\\); setTimeout\\\\(resolve, \\\\d+\\\\); \\\\}\\\\); \\\\} \\\\}; clock\\\\(\\\\); \\\\/\\\\/ logs asynchronously the date every \\\\d+[hmsp]+ \\\\/\\\\/ \\\\.\\\\.\\\\. do something \\\\/\\\\/ \\\\.\\\\.\\\\. do something \\\\/\\\\/ \\\\.\\\\.\\\\. do something/"
+    - paragraph:
+      - strong: It’s the small, unassuming details
+    - paragraph:
+      - text: It is clear from the TypeScript documentation about the
+      - strong: never
+      - text: type in which cases it can lead to a
+      - strong: never
+      - text: ", but my experience has shown that not much attention is paid to the small details (documentation)."
+    - blockquote:
+      - paragraph:
+        - link "TypeScript":
+          - strong: TypeScript
+        - text: ": Because never is a subtype of every type, it is always omitted"
+        - strong: from union types
+        - text: and is ignored
+        - strong: in function
+        - text: return type inference as long as there are other types being returned
+    - paragraph:
+      - text: Indeed,
+      - strong: never
+      - text: can arise or be ignored from Union Types or from the return type of a
+      - strong: function
+      - text: . As you may have noticed, our examples are around functions. If we executed the code examples not within a function but in a .ts file, this would lead to
+      - strong: unreachable-code
+      - text: . Essentially, it’s almost the same, with the small but significant difference that
+      - strong: never
+      - text: is a type one can work with on type-level, and
+      - strong: unreachable code
+      - text: is just a statement from the TypeScript compiler that does not lead to an error.
+    - paragraph:
+      - strong: Edge Cases, Loops, and the ‘never’
+    - paragraph:
+      - text: The
+      - strong: never
+      - text: type represents impossible values in TypeScript. However, if values can be modified at runtime in ways the compiler can’t predict, guaranteeing these impossible values never occur becomes technically challenging.
+    - paragraph:
+      - text: TypeScript leaves the type in the state it would be if it weren’t
+      - strong: never
+      - text: . That’s why the return value in loop1 is
+      - strong: void
+      - text: and not
+      - strong: never
+      - text: ", because the"
+      - strong: "Infinity"
+      - text: object hangs on the global
+      - strong: window
+      - text: object and could theoretically be overwritten, like
+      - strong: window.Infinity = 1
+      - text: ", making the loop finite."
+    - paragraph:
+      - link "TypeScript Playground"
+    - code: "const loop1 = () => { for (let i = 0; i < Infinity; i++) {} }; const result = loop1(); // ^? void"
+    - heading "When the never type results from explicit behavior" [level=2]
+    - paragraph:
+      - text: The explicit creation of the
+      - strong: never
+      - text: type can happen in several ways. Firstly, when we write our utility types or when we work as library developers. Strictly speaking, utility types are
+      - strong: generics
+      - text: .
+    - blockquote:
+      - paragraph:
+        - link "TypeScript":
+          - strong: TypeScript
+        - text: ": Because never is a subtype of every type, it is"
+        - strong: always omitted from union types
+        - text: and is ignored in function return type inference as long as there are other types being returned
+    - paragraph:
+      - text: Secondly, it happens automatically when we use the built-in utility types (Exclude, Extract, Omit,
+      - link "more Utility-Types"
+      - text: ) from TypeScript. Let’s make a little excursion into the world of conditional types and generics to understand the behavior of the
+      - strong: never
+      - text: type in this context.
+    - paragraph:
+      - strong: "What we see as a developer when we deal with Utility-Types:"
+    - paragraph:
+      - link "TypeScript Playground"
+    - code: "// built-in utility type in TS type Exclude<T, U> = T extends U ? never : T; type Foo = Exclude<string | number | boolean, boolean>; // ^? string, number type Bar = Extract<string | number | boolean, boolean>; // ^? boolean"
+    - paragraph:
+      - strong: "What TypeScript sees and does:"
+    - paragraph:
+      - text: In the first step TypeScript
+      - strong:
+        - link "distribute the types"
+      - text: . This means that
+      - strong: string | number | boolean
+      - text: will be distributed over the Exclude Utility-Type.
+    - code: type Foo = Exclude<string, boolean> | Exclude<number, boolean> | Exclude<boolean, boolean>; // ^? string | number | never
+    - paragraph:
+      - text: The second step TypeScript fills the placeholder
+      - strong: T
+      - text: and
+      - strong: U
+      - text: with the passed types.
+    - code: "type Foo = | (string extends boolean ? never : string) // resolved to string | (number extends boolean ? never : number) // resolved to number | (boolean extends boolean ? never : boolean); // resolved to never // ^? string | number | never"
+    - paragraph:
+      - text: In the third step the conditions will be resolved so that only the types are left, including the
+      - strong: never
+      - text: type.
+    - code: type Foo = string | number | never; // ^? string | number | never
+    - paragraph:
+      - text: In the last step, the
+      - strong: never
+      - text: will be ignored from the Union Types
+    - code: type Foo = string | number; // ^? string | number
+    - paragraph:
+      - text: I just wanted to illustrate that the
+      - strong: never
+      - text: type disappears or
+      - strong: ignored
+      - text: as already quoted several times from the TypeScript documentation. But basically, it is not the conditional types in the generic that makes the magic. The following example sums it up and confirms the TypeScript documentation once again. The
+      - strong: never
+      - text: type is omitted from union types.
+    - code: type Bar = string | boolean | number | never; // ^? string | boolean | number
+    - heading "TypeScript tries to reflect the behavior of JavaScript as much as possible" [level=2]
+    - paragraph:
+      - text: TypeScript has special operators that are deeply embedded in the language and its syntax. This special syntax can be used as a tool to fulfill a specific purpose of a developer. An example of a special operator is the
+      - strong: keyof
+      - text: operator, but before we look at the details we should consider the following example from the core of JavaScript.
+    - code: "const result = Object.keys({}); // logs: []"
+    - paragraph:
+      - text: The counterpart to
+      - strong: Object.keys
+      - text: is the
+      - strong: keyof
+      - text: from TypeScript, which can be used to get the keys of an object at compile time.
+    - code: "type Result = keyof {}; // ^? never"
+    - paragraph:
+      - text: If we apply a
+      - code: "\`keyof\`"
+      - text: to an empty object type in TypeScript we get
+      - strong: never
+      - text: . The same applies to JavaScript. In both cases an empty object cannot contain anything.
+    - paragraph: As we’ve learned in the article, TypeScript essentially tries to mirror the behavior of JavaScript at compile time on a type level.
+    - code: "// TypeScript compiler type StringKeys = keyof { name: 'Tim'; country: 'Belgium' }; // ^? name | country // JavaScript in the Browser const someString = { name: 'Tim', country: 'Belgium' }; Object.keys(someString); // logs: ['name', 'country']"
+    - heading "Variables, Functions, and the ‘never’ Type" [level=2]
+    - paragraph:
+      - strong: Variable assignment and the ‘never’ Type
+    - paragraph:
+      - text: When we try to assign a value to the ‘never’ type, for example during a variable declaration, it behaves like a white hole (
+      - link "White Hole - Wikipedia"
+      - text: "- the opposite of a black hole). It lets nothing in. Every other type that wants to go to the other side (e.g., value1) will rejected. Simply put, the values"
+      - strong: "1"
+      - text: ","
+      - strong: Hello World
+      - text: and
+      - strong: "true"
+      - text: are not subtypes of ‘never’.
+    - blockquote:
+      - paragraph:
+        - link "TypeScript":
+          - strong: TypeScript
+        - text: ": The ‘never’ type is a"
+        - strong: subtype of
+        - text: ", and assignable to,"
+        - strong: every type
+        - text: ; however,
+        - strong: no type is a subtype
+        - text: of, or
+        - strong: assignable to, ‘never’
+        - text: ", (except ‘never’ itself). Even ‘any’ isn’t assignable to ‘never’"
+    - paragraph:
+      - link "TypeScript Playground"
+    - code: "// Error: type number is not assignable to type never const value1: never = 1; // ^? never // Error: type string is not assignable to type never const value2: never = 'Hello World'; // ^? never // Error: type boolean is not assignable to type never const value3: never = true; // ^? never const anyValue: any = 1; // Error: Type any is not assignable to type never const value4: never = anyValue; // ^? never // correct, never is assignable to never const value4: never = (() => { // ^? never throw new Error(''); })();"
+    - paragraph:
+      - strong: Function arguments and assignability of variables to the never type
+    - paragraph:
+      - text: In the example above we have looked at a very theoretical and not practice-orientated variant of what happens when you try to assign values to a
+      - strong: never
+      - text: type. In reality, and in most cases, this compile-time error occurs when you pass the return values from one function to another function. This is the only difference to the example above.
+    - paragraph:
+      - link "TypeScript Playground"
+    - code: "function canTakeArg1(foo: unknown | string | number | boolean) { return 'Wycliffe'; } const throwError1 = () => { throw new Error('error'); }; // correct: never is a subtype of string or of every type canTakeArg1(throwError1());"
+    - heading "Weird at first glance but it is a design decision from TypeScript" [level=2]
+    - paragraph: It’s not necessary to remember the next code examples in detail, but reading about it once helps our brain to recall it more easily the next time.
+    - paragraph:
+      - text: If you ever encounter one of these cases (1, 2, or 3) and wonder why in
+      - strong: case 1
+      - text: you receive a boolean and in another
+      - strong: case 2
+      - text: a never instead of the expected boolean (true), and you are puzzled why you can circumvent it in
+      - strong: case 3
+      - text: by using a so-called
+      - strong:
+        - link "non-naked"
+      - text: type, then do not be surprised. This is a design decision and not a bug in the TypeScript compiler.
+    - blockquote:
+      - paragraph:
+        - link "Nurbol Alpysbayev":
+          - strong: Nurbol Alpysbayev
+        - text: ": You are distributing an empty union aka ‘never’ and this gives a result of the distribution of an empty union (aka ‘never’): that is another empty union! Completely makes sense"
+    - paragraph:
+      - link "TypeScript Playground"
+    - code: "// Cases 1, 2, and 3 // (1) Conditional Type type Foo = never extends never ? true : false; // ^? true // (2) Generic with naked Conditional Type type Bar<T> = T extends never ? true : false; // not \`true\` as expected but **never**! type Baz = Bar<never>; // ^? never // (3) Generic with none-naked Conditional Type type Lorum<T> = [T] extends [never] ? true : false; type Ipsum = Lorum<never>; // ^? true"
+    - heading "Exploring other(s) perspectives of the ‘never’ type can be useful" [level=2]
+    - paragraph:
+      - text: Unfortunately, I can’t cover everything about the
+      - strong: never
+      - text: type in this article. That would exceed the scope of the topic. I intended to show and share my perspective on things. Many great articles on the web have already explored other aspects of the
+      - strong: never
+      - text: type.
+    - list:
+      - listitem:
+        - text: Here is a really interesting article that I find very insightful from
+        - strong: Zhenghao’s
+        - text: Blog about the
+        - link "never Type":
+          - strong: never Type
+      - listitem:
+        - text: A sophisticated example of error handling with the
+        - strong: never
+        - text: type, which I discovered several days after publishing the initial version of this article, is presented in Stefan Baumgartner’s article. His article, titled
+        - 'link "The \`never\` type and error handling in TypeScript"':
+          - strong:
+            - text: The
+            - code: "\`never\`"
+            - text: type and error handling in TypeScript
+        - text: ", offers deep insights into the subject.”"
+    - paragraph:
+      - strong: Conclusion
+    - paragraph: In conclusion, we can say that we encounter the never in two different ways. Once implicitly, when TypeScript is not able to determine a type, and explicitly, when we as developers want to consciously control the type in utility types. We can also note that the never type is always removed from union types and ignored in functions as long as other types are returned. There are edge cases here and there. You don’t need to memorize these, but you do need to be aware of them.
+    - paragraph:
+      - strong: Thanks
+    - paragraph:
+      - text: Many thanks to
+      - link "Maina Wycliffe"
+      - text: and
+      - link "Tim Deschryver"
+      - text: for reviewing this article. I appreciate your time and effort. I am grateful for your support.
+    - paragraph:
+      - text: You can find me on
+      - link "Twitter"
+      - text: ","
+      - link "GitHub"
+      - text: ","
+      - link "LinkedIn"
+      - text: and
+      - link "XING"
+      - text: . I’m looking forward to connecting with you and sharing our knowledge. Let’s make the world a sweeter place together!
+    - link "#typescript"
+    - link "#types"
+    - link "#never"
+    - button "Copy link"
+  - heading "Read Next" [level=2]
+  - link /Like Ed Sheeran with 4 chords - Efficient keybindings chords for your system February \\d+, \\d+ \\(Updated on March \\d+, \\d+ \\) \\.\\.\\. Read Post/:
+    - heading "Like Ed Sheeran with 4 chords - Efficient keybindings chords for your system" [level=3]
+    - time: /February \\d+, \\d+/
+    - time: /March \\d+, \\d+/
+    - img
+- contentinfo:
+  - link "Contact"
+  - link "Imprint"
+  - link "Privacy"
+  - link "Twitter"
+  - link "Github"
+  - link "LinkedIn"
+  - link "XING"
+  - paragraph: /© \\d+ honey\\.glass\\. All rights reserved\\./
+`;

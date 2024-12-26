@@ -1,0 +1,52 @@
+export const startPageYamlSnapshot = `
+- navigation:
+  - list:
+    - listitem:
+      - link "Home"
+    - listitem:
+      - link "Blog"
+    - listitem:
+      - link "Tags"
+  - button "Change color scheme":
+    - img
+- banner:
+  - link "honey.glass"
+  - paragraph: Serkan Sipahi - Software Engineer
+- main:
+  - heading "Ad astra per aspera" [level=1]
+  - figure:
+    - img "A black hole in space."
+  - paragraph: I'm writing about programming and all the cool tech stuff around it. I want to make everything I know easy for everyone to understand. I don't just want to make things; I want to help us all learn together and make tough topics as easy as enjoying reading.
+  - paragraph: I hope my blog lights up the way in this huge, unknown online space. With honey.glass, I aim to create a place where we all share what we know freely, helping and feeding our curiosity. This journey might be tough, but it's also going to be rewarding.
+  - paragraph:
+    - text: You can find me on
+    - link "Twitter"
+    - text: ","
+    - link "GitHub"
+    - text: ","
+    - link "LinkedIn"
+    - text: and
+    - link "XING"
+    - text: . I'm excited to meet you and share what we know. Let's make the online world a better place together!
+  - heading "Writing" [level=2]
+  - link /Like Ed Sheeran with 4 chords - Efficient keybindings chords for your system February \\d+, \\d+ \\(Updated on March \\d+, \\d+ \\) \\.\\.\\. Read Post/:
+    - heading "Like Ed Sheeran with 4 chords - Efficient keybindings chords for your system" [level=3]
+    - time: /February \\d+, \\d+/
+    - time: /March \\d+, \\d+/
+    - img
+  - 'link /The never type in TypeScript February \\d+, \\d+ \\(Updated on March \\d+, \\d+ \\) The greatly underestimated and often overlooked never type is a core Type in the TypeScript type hierarchy\\. TypeScript itself says: "The never type represents the type of values that never occur\\." Even though it is said to never appear, it is omnipresent\\. Read Post/':
+    - heading "The never type in TypeScript" [level=3]
+    - time: /February \\d+, \\d+/
+    - time: /March \\d+, \\d+/
+    - img
+  - link "View All Posts"
+- contentinfo:
+  - link "Contact"
+  - link "Imprint"
+  - link "Privacy"
+  - link "Twitter"
+  - link "Github"
+  - link "LinkedIn"
+  - link "XING"
+  - paragraph: /© \\d+ honey\\.glass\\. All rights reserved\\./
+`;
