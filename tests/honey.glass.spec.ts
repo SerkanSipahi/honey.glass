@@ -11,13 +11,29 @@ test.beforeEach('Open start URL', async ({ page }) => {
 test('Startpage', async ({ page }) => {
     await expect(page).toHaveTitle('honey.glass');
     await expect(page.locator('body')).toMatchAriaSnapshot(startPageYamlSnapshot);
+
+    await page.getByText('The never type in TypeScript').click();
+    await expect(page.locator('body')).toMatchAriaSnapshot(expectTheNeverTypeInTs);
 });
 
-test('Blog Archive', async ({ page }) => {
-    await page.getByText('View All Posts').click();
+test('Blog Archive over `View All Posts` link', async ({ page }) => {
+    await page.getByText('View All Posts', { exact: true }).click();
     await expect(page).toHaveTitle('Blog | honey.glass');
     await expect(page).toHaveURL(/\/blog/);
     await expect(page.locator('body')).toMatchAriaSnapshot(blogArchivYamlSnapshot);
+
+    await page.getByText('The never type in TypeScript').click();
+    await expect(page.locator('body')).toMatchAriaSnapshot(expectTheNeverTypeInTs);
+});
+
+test('Blog Archive over `Blog` link', async ({ page }) => {
+    await page.getByText('Blog', { exact: true }).click();
+    await expect(page).toHaveTitle('Blog | honey.glass');
+    await expect(page).toHaveURL(/\/blog/);
+    await expect(page.locator('body')).toMatchAriaSnapshot(blogArchivYamlSnapshot);
+
+    await page.getByText('The never type in TypeScript').click();
+    await expect(page.locator('body')).toMatchAriaSnapshot(expectTheNeverTypeInTs);
 });
 
 test('Tags', async ({ page }) => {
@@ -33,3 +49,7 @@ test('Article: The never type in TypeScript', async ({ page }) => {
     await expect(page).toHaveURL(/\/blog\/the-never-type-in-typescript/);
     await expect(page.locator('body')).toMatchAriaSnapshot(expectTheNeverTypeInTs);
 });
+
+// test('Correct font-family is loaded without error and redered correctly', async ({ page }) => {
+//
+// });
