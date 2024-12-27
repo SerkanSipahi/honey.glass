@@ -30,6 +30,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy honey.glass
+    needs: test
     permissions:
       contents: read
       deployments: write
