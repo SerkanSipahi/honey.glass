@@ -45,16 +45,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-artifact
-
-      - name: List downloaded files
-        run: |
-          echo "Listing files in the current directory"
-          ls -R
-      - name: Check contents of dist/
-        run: |
-          echo "Checking contents of dist directory"
-          ls -R dist/
-
+          path: dist
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
