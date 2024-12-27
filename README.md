@@ -2,8 +2,10 @@
 
 ## Todo
 
-- [ ] when using dependabot, we have to run playwrite tests to make sure the dependabot updates don't break the sites
 - [ ] add eslint
+- [x] when using dependabot, we have to run e2e tests (e.g. playwrite) to make sure the dependabot updates don't break the sites
+- [ ] write a crawler which will crawl the site and create snapshots of every page with `await page.locator('body').ariaSnapshot()`
+      in order to use them for playwrite tests before deploying the site.
 
 ### Drafts Articles
 
