@@ -12,7 +12,6 @@ const seoSchema = z.object({
     pageType: z.enum(['website', 'article']).default('website')
 });
 
-// @ts-ignore
 const blog = defineCollection({
     schema: z.object({
         title: z.string(),
@@ -25,7 +24,6 @@ const blog = defineCollection({
     })
 });
 
-// @ts-ignore
 const pages = defineCollection({
     schema: z.object({
         title: z.string(),

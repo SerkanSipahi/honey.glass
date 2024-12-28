@@ -4,7 +4,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Button from '../../components/Button.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import PostPreview from '../../components/PostPreview.astro';
-// import Subscribe from '../../components/Subscribe.astro';
 import { sortItemsByDateDesc } from '../../utils/data-utils';
 import { slugify } from '../../utils/common-utils';
 import BlogComments from '../../components/BlogComments.astro';
@@ -25,7 +24,7 @@ export async function getStaticPaths() {
 type Props = { post: CollectionEntry<'blog'>; prevPost: CollectionEntry<'blog'>; nextPost: CollectionEntry<'blog'> };
 
 const { href } = Astro.url;
-const { post, prevPost, nextPost, entry } = Astro.props;
+const { post, prevPost, nextPost } = Astro.props;
 const { title, publishDate, updatedDate, excerpt, tags = [], seo } = post.data;
 const { Content, remarkPluginFrontmatter } = await post.render();
 ---
@@ -91,8 +90,8 @@ const { Content, remarkPluginFrontmatter } = await post.render();
         });
 
         async function copyUrl(button: HTMLButtonElement) {
-            let url = button.getAttribute('data-url') || '';
-            let label = button.innerText;
+            const url = button.getAttribute('data-url') || '';
+            const label = button.innerText;
 
             await navigator.clipboard.writeText(url);
 
