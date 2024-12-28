@@ -1,6 +1,6 @@
 ## 🚀 Project Structure
 
-## Todo
+### Todo
 
 - [x] add eslint & eslint-plugin-astro
 - [x] when using dependabot, we have to run e2e tests (e.g. playwrite) to make sure the dependabot updates don't break the sites
