@@ -4,8 +4,42 @@
 
 - [x] add eslint & eslint-plugin-astro
 - [x] when using dependabot, we have to run e2e tests (e.g. playwrite) to make sure the dependabot updates don't break the sites
+- [ ] Disable a direct push to GitHub main branch
+      [ ] - https://dev.to/pixiebrix/disable-a-direct-push-to-github-main-branch-8c2
 - [ ] write a crawler which will crawl the site and create snapshots of every page with `await page.locator('body').ariaSnapshot()`
       in order to use them for playwrite tests before deploying the site.
+- [ ] github actions
+  - [ ] split test and deploy into separate workflow files
+
+### How to deploy to cloudflare pages with github actions
+
+- Deploy git strategy
+  - when created a pull-request or pushed into it or when pushed to main
+- What to do on cloudflare
+  - dash.cloudflare.com > Workers & Pages > honey-glass > View Details > Build Settings > Settings
+    - in `Branch Control` disable `Enable automatic production branch deployments`
+    - This message is then displayed (which is fine):
+      - Automatic production branch deployments are disabled for your git integration. Re-enable automatic deployments to resume builds triggered by git pushes.
+    - in `Preview branch` enable `None (Disable automatic branch deployments)`
+    - in `Build Configurations` empty `Build command` and `Output directory`
+  - dash.cloudflare.com/profile/api-tokens
+    - create token > create custom token
+      - Account | Cloudflare Pages | Edit
+      - User | User Details | Read
+  - Copy `Account ID`
+    - dash.cloudflare.com > honey.glass
+      - Scroll down to `Account ID`
+  - You can build up to 500 times per month on the Free plan
+    - What counts a build in clouflare pages?
+    - in our solution only when creatng a PR or pushing to main triggers a build
+    - How to mesure the build Limit Count?
+      - https://community.cloudflare.com/t/how-to-track-of-consumed-builds-on-cloudflare-pages/381331
+- What to do on Gitub
+  - https://github.com/{accountName}/{repositoryName}
+    - Settings > Secrets & Variables > Actions > New repository secret
+      - Name: `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN`
+- Tutorial which was useful
+  - see https://www.youtube.com/watch?v=t068JaUiuj4
 
 ### Drafts Articles
 
