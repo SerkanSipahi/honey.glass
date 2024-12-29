@@ -5,7 +5,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "sunday"
-      time: "10:45"
+      time: "11:00"
     groups:
       all-dependencies:
         patterns:

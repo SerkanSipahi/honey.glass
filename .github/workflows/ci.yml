@@ -31,6 +31,7 @@ jobs:
         path: dist/
         retention-days: 30
   deploy:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     name: Deploy honey.glass
     needs: test
