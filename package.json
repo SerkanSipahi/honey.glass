@@ -29,7 +29,7 @@
         "esbuild": "0.24.0"
     },
     "dependencies": {
-        "@astrojs/mdx": "^4.0.2",
+        "@astrojs/mdx": "^4.0.3",
         "@astrojs/partytown": "^2.1.2",
         "@astrojs/rss": "^4.0.10",
         "@astrojs/sitemap": "^3.2.1",
