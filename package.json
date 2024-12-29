@@ -37,7 +37,7 @@
         "@fontsource/roboto": "^5.1.0",
         "@jop-software/astro-cookieconsent": "^3.0.1",
         "@tailwindcss/typography": "^0.5.15",
-        "astro": "^5.1.0",
+        "astro": "^5.1.1",
         "astro-google-fonts-optimizer": "^0.2.2",
         "marked": "^15.0.4",
         "mdast-util-to-string": "^4.0.0",
