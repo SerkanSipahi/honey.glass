@@ -5,5 +5,12 @@ updates:
     schedule:
       interval: "weekly"
       day: "sunday"
-      time: "10:30"
+      time: "10:45"
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
 
