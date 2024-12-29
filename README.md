@@ -1,9 +1,18 @@
 ## 🚀 Project Structure
 
+### Run locally Github Actions
+
+- How? https://github.com/nektos/act
+
 ### Todo
 
 - [x] add eslint & eslint-plugin-astro
 - [x] when using dependabot, we have to run e2e tests (e.g. playwrite) to make sure the dependabot updates don't break the sites
+- [ ] run tests before commiting
+- [ ] write blogpost about how to deploy to cloudflare pages with github actions
+- [ ] auto-merging Pull-Request from dependabot (make sense when having good tests)
+  - [ ] https://dev.to/slashgear_/how-to-automatically-merge-dependabot-pull-requests-with-github-actions--30pe
+- [ ] write blogpost about how to autonoumously test a blog with playwrite with ariaSnapshots
 - [ ] Disable a direct push to GitHub main branch
       [ ] - https://dev.to/pixiebrix/disable-a-direct-push-to-github-main-branch-8c2
 - [ ] write a crawler which will crawl the site and create snapshots of every page with `await page.locator('body').ariaSnapshot()`
@@ -14,14 +23,47 @@
 ### How to deploy to cloudflare pages with github actions
 
 - Deploy git strategy
+
   - when created a pull-request or pushed into it or when pushed to main
+
+    ```yaml
+    pull_request:
+      # We are using the different types to ensure that the pipeline does not run unnecessarily on every push.
+      # This makes sense when we are using Cloudflare-Pages which are limited to 500 builds per month.
+      types:
+        # https://frontside.com/blog/2020-05-26-github-actions-pull_request/
+        # https://github.com/orgs/community/discussions/24567#discussioncomment-8068482
+        # https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=assigned#pull_request
+
+        # This type triggers the workflow when a new pull request is created. It ensures that the
+        # pipeline runs as soon as the pull request is initiated.
+        - opened
+        # This type triggers the workflow when commits are added, removed, or updated in an open
+        # pull request. For instance, if you push new changes to the branch linked to the pull
+        # request, the workflow will re-run.
+        - synchronize
+        # This type triggers the workflow when a previously closed pull request is reopened. It helps
+        # ensure that the pipeline runs again if the pull request is revisited after being closed.
+        - reopened
+    ```
+
+- When we want that dependabot should only runs for example only in test job
+  ```yaml
+  deploy:
+    # The github.actor is a context variable in GitHub Actions that represents the username of
+    # the user who triggered the workflow run. Here are some key points about github.actor
+    if: ${{ github.actor != 'dependabot[bot]' }}
+  ```
 - What to do on cloudflare
-  - dash.cloudflare.com > Workers & Pages > honey-glass > View Details > Build Settings > Settings
-    - in `Branch Control` disable `Enable automatic production branch deployments`
-    - This message is then displayed (which is fine):
-      - Automatic production branch deployments are disabled for your git integration. Re-enable automatic deployments to resume builds triggered by git pushes.
-    - in `Preview branch` enable `None (Disable automatic branch deployments)`
-    - in `Build Configurations` empty `Build command` and `Output directory`
+- dash.cloudflare.com > Workers & Pages > honey-glass > View Details > Build > Settings
+  - in `Branch Control` disable `Enable automatic production branch deployments`
+  - This message is then displayed (which is fine):
+    - Automatic production branch deployments are disabled for your git integration. Re-enable automatic deployments to resume builds triggered by git pushes.
+  - in `Preview branch` enable `None (Disable automatic branch deployments)`
+  - in `Build Configurations` empty `Build command` and `Output directory`
+  - in `Git Repository` will redirect to Github. Suspend the Github-Plugin Cloudflare integration
+    This makes sense when we are using Cloudflare-Pages which are limited to 500 builds per month.
+    https://github.com/settings/installations (see `Cloudflare Pages`)
   - dash.cloudflare.com/profile/api-tokens
     - create token > create custom token
       - Account | Cloudflare Pages | Edit
