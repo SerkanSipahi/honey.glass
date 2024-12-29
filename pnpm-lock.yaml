@@ -27,8 +27,8 @@ importers:
         specifier: ^5.1.4
         version: 5.1.4(astro@5.1.1(@types/node@22.10.2)(jiti@2.4.2)(rollup@4.29.1)(typescript@5.7.2)(yaml@2.6.1))(tailwindcss@3.4.17)
       '@fontsource/roboto':
-        specifier: ^5.1.0
-        version: 5.1.0
+        specifier: ^5.1.1
+        version: 5.1.1
       '@jop-software/astro-cookieconsent':
         specifier: ^3.0.1
         version: 3.0.1(vanilla-cookieconsent@3.0.1)
@@ -380,8 +380,8 @@ packages:
     resolution: {integrity: sha512-zSkKow6H5Kdm0ZUQUB2kV5JIXqoG0+uH5YADhaEHswm664N9Db8dXSi0nMJpacpMf+MyyglF1vnZohpEg5yUtg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@fontsource/roboto@5.1.0':
-    resolution: {integrity: sha512-cFRRC1s6RqPygeZ8Uw/acwVHqih8Czjt6Q0MwoUoDe9U3m4dH1HmNDRBZyqlMSFwgNAUKgFImncKdmDHyKpwdg==}
+  '@fontsource/roboto@5.1.1':
+    resolution: {integrity: sha512-XwVVXtERDQIM7HPUIbyDe0FP4SRovpjF7zMI8M7pbqFp3ahLJsJTd18h+E6pkar6UbV3btbwkKjYARr5M+SQow==}
 
   '@fsouza/prettierd@0.25.4':
     resolution: {integrity: sha512-y67VtstV11r2lD2ZF8owCPRgUXO4JjrBSAmqehzaaBBSXXzWtLEt3s6VQiHXXSgw0X2BBPUnyy+L2O21S4uiDA==}
@@ -3392,7 +3392,7 @@ snapshots:
     dependencies:
       levn: 0.4.1
 
-  '@fontsource/roboto@5.1.0': {}
+  '@fontsource/roboto@5.1.1': {}
 
   '@fsouza/prettierd@0.25.4(typescript@5.7.2)':
     dependencies:
