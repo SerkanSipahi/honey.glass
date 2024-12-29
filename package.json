@@ -34,7 +34,7 @@
         "@astrojs/rss": "^4.0.10",
         "@astrojs/sitemap": "^3.2.1",
         "@astrojs/tailwind": "^5.1.4",
-        "@fontsource/roboto": "^5.1.0",
+        "@fontsource/roboto": "^5.1.1",
         "@jop-software/astro-cookieconsent": "^3.0.1",
         "@tailwindcss/typography": "^0.5.15",
         "astro": "^5.1.1",
