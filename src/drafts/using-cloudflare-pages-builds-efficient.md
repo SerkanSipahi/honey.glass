@@ -51,11 +51,11 @@ Desweiteren nehmen wir an das wir folgende jobs in der Pipeline haben: `test`, `
 
 **Scenario 1:**
 
-Tests werden nur dann ausgefuehrt, wenn etwas in einen spezifischen Branch oder Pull Request gepusht wird. Beide Tests und das Deployment werden nur ausgeführt,
-wenn ein Pull Request in den main Branch gemerged wird. Direkte Pushes in den main Branch sind nicht erlaubt.
+Tests werden nur dann ausgefuehrt, wenn etwas in einen spezifischen Branch oder Pull-Request gepusht wird. Beide, Tests und das Deployment werden ausgeführt,
+wenn ein Pull-Request in den main Branch gemerged wird. Direkte Pushes in den main Branch sind nicht erlaubt.
 
-Dieses Scenario ist vorteilhaft, da der **Deploy-Prozess** nur bei Merges in den `main`-Branch ausgelöst wird, was das 500-Build-Limit schont. **Gezielte Tests** sparen Ressourcen
-und fördern eine effiziente Nutzung. Der **klare Workflow** sorgt für Transparenz, und durch die **Reduzierung von unnötigen Builds** werden überflüssige Benachrichtigungen und
+Dieses Scenario ist vorteilhaft, da der **Deploy-Prozess** nur bei Merges in den main-Branch ausgelöst wird, was das 500-Build-Limit schont.
+Der **klare Workflow** sorgt für Transparenz, und durch die **Reduzierung von unnötigen Builds** werden überflüssige Benachrichtigungen und
 Logs vermieden, was die Pipeline übersichtlicher und fokussierter macht.
 
 **Scenario 2:**
@@ -64,4 +64,4 @@ Tests werden nur dann ausgefuehrt, wenn jemand (außer dem main-Branch) Änderun
 wenn jemand Änderungen in den main-Branch pusht.
 
 Diese Scenario erhöht das Risiko, das Deploy-Limit schnell zu überschreiten, da jeder Push zum main-Branch einen deployment auslöst. Ressourcen werden verschwendet,
-Zudem können CI-Pipeline-Engpässe entstehen, die wichtige Builds verzögern.
+Zudem können CI-Pipeline-Engpässe entstehen, die wichtige Builds verzögern und die Pipeline kann mit Benachrichtigungen und Logs überflutet werden.
