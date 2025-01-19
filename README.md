@@ -8,17 +8,24 @@
 
 - [x] add eslint & eslint-plugin-astro
 - [x] when using dependabot, we have to run e2e tests (e.g. playwrite) to make sure the dependabot updates don't break the sites
+- [x] add linting to github action workflow
+- [ ] change pipeline to scenario 1
+    - [ ] maximizing Efficiency: Using GitHub Actions to Optimize Cloudflare Pages Free Build Limits
+- [ ] remove resulation.esbuild from package.json (probably bug is fixed)
+- [ ] write blogpost about how to deploy efficiency to cloudflare pages with github actions without going out of the 500 builds per month
+- [ ] github actions, split test and deploy into separate workflow files
 - [ ] run tests before commiting
-- [ ] write blogpost about how to deploy to cloudflare pages with github actions
-- [ ] auto-merging Pull-Request from dependabot (make sense when having good tests)
-  - [ ] https://dev.to/slashgear_/how-to-automatically-merge-dependabot-pull-requests-with-github-actions--30pe
-- [ ] write blogpost about how to autonoumously test a blog with playwrite with ariaSnapshots
+- [ ] write an ai-agent proofs from time to time written content is up-to-date
+- [ ] write a crawler which will crawl the site and create snapshots of every page with `await page.locator('body').ariaSnapshot()`
+    - [ ] write a agnostic library for this and use them also in a custom GitHub action
+    - [ ] https://crawlee.dev/docs/examples/playwright-crawler
+    - [ ] write blogpost about how to autonoumously test, using dependabot a blog fully autonomously
+- [ ] auto-merging Pull-Request from dependabot
+    - [ ] screenshot testing is required for this
+    - [ ] https://dev.to/slashgear_/how-to-automatically-merge-dependabot-pull-requests-with-github-actions--30pe
 - [ ] Disable a direct push to GitHub main branch
       [ ] - https://dev.to/pixiebrix/disable-a-direct-push-to-github-main-branch-8c2
-- [ ] write a crawler which will crawl the site and create snapshots of every page with `await page.locator('body').ariaSnapshot()`
       in order to use them for playwrite tests before deploying the site.
-- [ ] github actions
-  - [ ] split test and deploy into separate workflow files
 
 ### How to deploy to cloudflare pages with github actions
 
@@ -82,6 +89,8 @@
       - Name: `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN`
 - Tutorial which was useful
   - see https://www.youtube.com/watch?v=t068JaUiuj4
+- How we can save more build times? By running Github Actions locally
+    - https://github.com/nektos/act
 
 ### Drafts Articles
 
