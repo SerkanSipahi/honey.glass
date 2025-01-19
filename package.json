@@ -15,9 +15,9 @@
         "start": "astro dev"
     },
     "lint-staged": {
-        "*.{md,ts,mjs,js,html,css,scss,json}": [
-            "npx eslint",
-            "prettier --write"
+        "*.{md,yml,ts,mjs,js,html,css,scss,json,astro}": [
+            "pnpm run build && playwright test",
+            "npx eslint"
         ]
     },
     "config": {

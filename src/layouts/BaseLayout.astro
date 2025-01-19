@@ -8,10 +8,13 @@ import Nav from '../components/Nav.astro';
 export type Props = HeadProps & { showHeader?: boolean };
 
 const { showHeader = true, ...head } = Astro.props;
+const date1 = new Date().toISOString().replace(/[:]/g, '-').split('.')[0]
+const date2 = new Date().toLocaleString('en-GB', { timeZone: 'UTC' });
+
 ---
 
 <!doctype html>
-<html lang="en" class="antialiased break-words cc--darkmode">
+<html lang="en" class={`antialiased break-words cc--darkmode date--${date1}`}>
     <!---------------------------------->
     <!-- Ad Astra Per Aspera 🚀 🪐 ✨ -->
     <!---------------------------------->
@@ -36,6 +39,7 @@ const { showHeader = true, ...head } = Astro.props;
         <ClientRouter />
     </head>
     <body class="bg-main text-main">
+        <div class="hidden">Release Date: {date2}</div>
         <div class="flex flex-col min-h-screen px-4 md:px-8">
             <Nav />
             {showHeader && <Header />}
